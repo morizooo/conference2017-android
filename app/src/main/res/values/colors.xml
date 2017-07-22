@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="buildersconRed">#E95433</color>
+    <color name="buildersconBlue">#5EB6E8</color>
+    <color name="buildersconBlack">#000000</color>
+    <color name="lightGray">#D3D3D3</color>
+</resources>
