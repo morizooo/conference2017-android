@@ -3,12 +3,12 @@
 
     <item
         android:id="@+id/navigation_timeline"
-        android:icon="@drawable/ic_home_black_24dp"
-        android:title="@string/title_timeline" />
+        android:icon="@drawable/ic_schedule_black_24dp"
+        android:title="" />
 
     <item
         android:id="@+id/navigation_information"
-        android:icon="@drawable/ic_dashboard_black_24dp"
-        android:title="@string/title_information" />
+        android:icon="@drawable/ic_info_outline_black_24dp"
+        android:title="" />
 
 </menu>
