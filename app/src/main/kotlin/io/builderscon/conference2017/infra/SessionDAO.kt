@@ -1,7 +1,7 @@
-package io.builderscon.conference2017.repository
+package io.builderscon.conference2017.infra
 
 import io.builderscon.client.model.Session
 
-interface SessionRepository {
+interface SessionDAO {
     fun findAll(): List<Session>?
 }

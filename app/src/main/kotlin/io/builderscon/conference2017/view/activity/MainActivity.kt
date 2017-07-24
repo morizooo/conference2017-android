@@ -1,20 +1,13 @@
-package io.builderscon.conference2017.view
+package io.builderscon.conference2017.view.activity
 
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v7.app.AppCompatActivity
-import com.squareup.moshi.KotlinJsonAdapterFactory
-import com.squareup.moshi.Moshi
-import com.squareup.moshi.Rfc3339DateJsonAdapter
-import io.builderscon.client.model.Conference
 import io.builderscon.conference2017.R
-import io.builderscon.conference2017.model.service.SponsorService
-import io.builderscon.conference2017.model.service.TimetableService
-import io.builderscon.conference2017.repository.file.FileRepository
+import io.builderscon.conference2017.model.repository.TimetableRepository
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.experimental.CommonPool
 import kotlinx.coroutines.experimental.async
-import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -41,7 +34,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun returnTenAsync() = async(CommonPool) {
-        val timetable = TimetableService().read()
+        val timetable = TimetableRepository().read()
         println(timetable)
         return@async 10
     }

@@ -1,16 +1,16 @@
-package io.builderscon.conference2017.model.service
+package io.builderscon.conference2017.model.repository
 
 import io.builderscon.client.model.Session
 import io.builderscon.conference2017.model.RichTrack
 import io.builderscon.conference2017.model.Timetable
-import io.builderscon.conference2017.repository.file.FileConferenceRepository
-import io.builderscon.conference2017.repository.file.FileSessionApiRepository
+import io.builderscon.conference2017.infra.file.FileConferenceDAO
+import io.builderscon.conference2017.infra.file.FileSessionApiDAO
 import java.text.SimpleDateFormat
 
-class TimetableService {
+class TimetableRepository {
     fun read(): List<Timetable>? {
-        val conferenceRepository = FileConferenceRepository()
-        val sessionRepository = FileSessionApiRepository()
+        val conferenceRepository = FileConferenceDAO()
+        val sessionRepository = FileSessionApiDAO()
 
         val conference = conferenceRepository.findAll()
         val sessions = sessionRepository.findAll()
