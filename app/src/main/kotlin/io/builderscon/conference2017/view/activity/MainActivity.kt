@@ -4,39 +4,37 @@ import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v7.app.AppCompatActivity
 import io.builderscon.conference2017.R
-import io.builderscon.conference2017.model.repository.TimetableRepository
+import io.builderscon.conference2017.view.fragment.InformationFragment
+import io.builderscon.conference2017.view.fragment.TimelineFragment
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.coroutines.experimental.CommonPool
-import kotlinx.coroutines.experimental.async
+
 
 class MainActivity : AppCompatActivity() {
-
-    private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
-        when (item.itemId) {
-            R.id.navigation_timeline -> {
-                message.setText(R.string.title_timeline)
-                return@OnNavigationItemSelectedListener true
-            }
-            R.id.navigation_information -> {
-                returnTenAsync()
-                message.setText(R.string.title_information)
-                return@OnNavigationItemSelectedListener true
-            }
-        }
-        false
-    }
+    private val informationItemId = R.id.navigation_information
+    private val timelineItemId = R.id.navigation_timeline
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
+        setSupportActionBar(tool_bar)
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
+        navigation.selectedItemId = timelineItemId
     }
 
-    fun returnTenAsync() = async(CommonPool) {
-        val timetable = TimetableRepository().read()
-        println(timetable)
-        return@async 10
+    private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
+        when (item.itemId) {
+            timelineItemId -> {
+                toolbar_title.text = getString(R.string.title_timeline)
+                this.supportFragmentManager.beginTransaction().replace(R.id.fragment, TimelineFragment(), "SessionFragment").commit()
+                return@OnNavigationItemSelectedListener true
+            }
+            informationItemId -> {
+                toolbar_title.text = getString(R.string.title_information)
+                this.supportFragmentManager.beginTransaction().replace(R.id.fragment, InformationFragment(), "InformationFragment").commit()
+                return@OnNavigationItemSelectedListener true
+            }
+        }
+        false
     }
 
 }
