@@ -10,7 +10,7 @@ import java.text.SimpleDateFormat
 class TimetableRepository {
     val fmt = SimpleDateFormat("yyyyMMdd")
 
-    fun read(): List<Timetable>? {
+    fun read(): List<Timetable> {
         val conferenceRepository = FileConferenceDAO()
         val sessionRepository = FileSessionApiDAO()
 
@@ -23,7 +23,7 @@ class TimetableRepository {
                 fmt.format(it.startsOn).equals(fmt.format(schedule.open))
             }?.groupBy { it.room.name }
             Timetable(schedule, tracks?.map { Track(it.key, it.value) })
-        }
+        } ?: emptyList()
     }
 
 }
