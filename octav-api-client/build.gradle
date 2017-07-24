@@ -8,6 +8,7 @@ dependencies {
     compile "com.squareup.moshi:moshi-adapters:$moshiVerion"
     compile 'com.squareup.retrofit2:retrofit:2.3.0'
     compile 'com.squareup.retrofit2:converter-moshi:2.3.0'
+    compile 'com.github.hotchemi:khronos:0.9.0'
 
     testImplementation 'junit:junit:4.12'
 }

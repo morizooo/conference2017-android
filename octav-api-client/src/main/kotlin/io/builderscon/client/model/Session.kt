@@ -1,6 +1,8 @@
 package io.builderscon.client.model
 
 import com.squareup.moshi.Json
+import khronos.plus
+import khronos.seconds
 import java.util.*
 
 
@@ -16,11 +18,17 @@ data class Session(
     @Json(name = "material_level") val materialLevel: Level,
     @Json(name = "spoken_language") val spokenLanguage: String,
     @Json(name = "slide_language") val slideLanguage: String
-)
+) {
+    fun endsOn(): Date {
+        return startsOn + duration.seconds
+    }
+}
 
 enum class Level {
     @Json(name = "beginner") BEGINNER,
     @Json(name = "intermediate") INTERMEDIATE,
     @Json(name = "advanced") ADVANCED
 }
+
+
 
