@@ -24,10 +24,8 @@ class TimetableFragment : Fragment() {
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         val titles = TimetableRepository().read().map { (schedule) ->
             schedule.let { fmt.format(it.open) } }
-
-
-
-        navigationTabStrip.setTitles(titles[0], titles[1], titles[2])
+        
+        navigationTabStrip.setTitles(*titles.toTypedArray())
         navigationTabStrip.setTabIndex(0, true)
     }
 
