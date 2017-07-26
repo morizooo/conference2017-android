@@ -6,8 +6,10 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.gigamole.navigationtabstrip.NavigationTabStrip
 import io.builderscon.conference2017.R
 import io.builderscon.conference2017.model.repository.TimetableRepository
+import io.builderscon.conference2017.view.SessionsFragment
 import kotlinx.android.synthetic.main.fragment_timetable.*
 import java.text.SimpleDateFormat
 
@@ -23,10 +25,24 @@ class TimetableFragment : Fragment() {
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         val titles = TimetableRepository().read().map { (schedule) ->
-            schedule.let { fmt.format(it.open) } }
-        
-        navigationTabStrip.setTitles(*titles.toTypedArray())
-        navigationTabStrip.setTabIndex(0, true)
+            schedule.let { fmt.format(it.open) }
+        }
+
+        navigationTabStrip.apply {
+            setTitles(*titles.toTypedArray())
+            setTabIndex(0, true)
+            onTabStripSelectedIndexListener = (object : NavigationTabStrip.OnTabStripSelectedIndexListener {
+                override fun onStartTabSelected(title: String?, index: Int) {
+                    val bundle = Bundle()
+                    bundle.putInt("tabIndex", index)
+                    val sessionsFragment = SessionsFragment()
+                    sessionsFragment.arguments = bundle
+                    childFragmentManager.beginTransaction().replace(R.id.timetable, sessionsFragment, "SessionsFragment").commit()
+                }
+
+                override fun onEndTabSelected(title: String?, index: Int) {}
+            })
+        }
     }
 
 }

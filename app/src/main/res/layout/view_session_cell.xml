@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="io.builderscon.conference2017.view.SessionViewModel" />
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:clipToPadding="false"
+        app:sessionCellBackground="@{viewModel.backgroundResId}"
+        app:twowayview_colSpan="@{viewModel.colSpan}"
+        app:twowayview_rowSpan="@{viewModel.rowSpan}">
+
+        <TextView
+            android:id="@+id/txt_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="6dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="4dp"
+            android:lines="1"
+            android:text="@{viewModel.shortStime}"
+            android:textAppearance="@style/TextCaption"
+            android:textColor="@color/buildersconBlue"
+            android:textSize="@dimen/session_table_cell_title_text_size"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/txt_title"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/txt_minutes" />
+
+        <TextView
+            android:id="@+id/txt_minutes"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:layout_marginStart="4dp"
+            android:layout_toEndOf="@id/txt_time"
+            android:layout_toRightOf="@id/txt_time"
+            android:lines="1"
+            android:text="@{viewModel.minutes}"
+            android:textAppearance="@style/TextCaption"
+            android:textColor="@color/buildersconRed"
+            android:textSize="@dimen/session_table_cell_title_text_size"
+            app:layout_constraintBaseline_toBaselineOf="@+id/txt_time"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintLeft_toRightOf="@+id/txt_time" />
+
+        <TextView
+            android:id="@+id/txt_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="6dp"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="6dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="@dimen/session_table_cell_text_margin"
+            android:ellipsize="end"
+            android:lineSpacingExtra="-2sp"
+            android:maxLines="@{viewModel.titleMaxLines}"
+            android:text="@{viewModel.title}"
+            android:textAppearance="@style/TextCaption"
+            android:textColor="@color/buildersconBlack"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_time" />
+
+        <TextView
+            android:id="@+id/txt_speaker_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:layout_marginEnd="6dp"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="6dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="@dimen/session_table_cell_text_margin"
+            android:drawableLeft="@drawable/ic_schedule_black_24dp"
+            android:drawablePadding="2dp"
+            android:drawableStart="@drawable/ic_schedule_black_24dp"
+            android:ellipsize="end"
+            android:maxLines="@{viewModel.speakerNameMaxLines}"
+            android:text="@{viewModel.speakerName}"
+            android:textAppearance="@style/TextCaption"
+            android:textColor="@color/buildersconBlue"
+            android:textSize="@dimen/session_table_cell_title_text_size"
+            android:visibility="@{viewModel.normalSessionItemVisibility}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+
+    </android.support.constraint.ConstraintLayout>
+
+</layout>

@@ -1,14 +1,15 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="io.builderscon.conference2017.view.fragment.TimetableFragment">
 
     <com.gigamole.navigationtabstrip.NavigationTabStrip
         android:id="@+id/navigationTabStrip"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
         app:nts_color="@color/buildersconBlue"
         app:nts_size="18dp"
         app:nts_weight="4dp"
@@ -16,6 +17,13 @@
         app:nts_gravity="bottom"
         app:nts_animation_duration="150"
         app:nts_active_color="@color/buildersconBlue"
-        app:nts_inactive_color="@color/buildersconBlack"/>
+        app:nts_inactive_color="@color/buildersconBlack" />
 
-</FrameLayout>
+    <FrameLayout
+        android:id="@+id/timetable"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toTopOf="@+id/navigationTabStrip"></FrameLayout>
+
+
+</LinearLayout>

@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 26
@@ -25,6 +26,10 @@ android {
             debuggable true
             multiDexEnabled true
         }
+    }
+
+    dataBinding {
+        enabled = true
     }
 
     dexOptions {
@@ -55,7 +60,15 @@ dependencies {
     compile project(':octav-api-client')
     compile 'com.android.support:multidex:1.0.1'
     compile "org.jetbrains.kotlinx:kotlinx-coroutines-android:0.16"
+
+    // Timetable
+    compile 'org.lucasr.twowayview:core:1.0.0-SNAPSHOT@aar'
+    compile 'org.lucasr.twowayview:layouts:1.0.0-SNAPSHOT@aar'
+    compile 'com.annimon:stream:1.1.5'
+
     compile 'com.github.devlight.navigationtabstrip:navigationtabstrip:1.0.4'
+
+    kapt "com.android.databinding:compiler:3.0.0-alpha3"
 
     androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
