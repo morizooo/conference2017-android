@@ -4,9 +4,9 @@
     android:layout_height="match_parent"
     tools:context="io.builderscon.conference2017.view.fragment.InformationFragment">
 
-    <TextView
+    <ListView
+        android:id="@+id/list_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="information" />
+        android:layout_height="match_parent"></ListView>
 
 </FrameLayout>
