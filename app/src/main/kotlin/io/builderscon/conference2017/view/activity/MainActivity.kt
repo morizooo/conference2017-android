@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity
 import android.util.TypedValue
 import android.view.View
 import io.builderscon.conference2017.R
+import io.builderscon.conference2017.view.SessionsFragment
 import io.builderscon.conference2017.view.fragment.InformationFragment
 import io.builderscon.conference2017.view.fragment.TimetableFragment
 import kotlinx.android.synthetic.main.activity_main.*
@@ -35,7 +36,7 @@ class MainActivity : AppCompatActivity() {
             }
             informationItemId -> {
                 toolbar_title.text = getString(R.string.title_information)
-                this.supportFragmentManager.beginTransaction().replace(R.id.fragment, InformationFragment(), "InformationFragment").commit()
+                this.supportFragmentManager.beginTransaction().replace(R.id.fragment, SessionsFragment(), "InformationFragment").commit()
                 return@OnNavigationItemSelectedListener true
             }
         }
