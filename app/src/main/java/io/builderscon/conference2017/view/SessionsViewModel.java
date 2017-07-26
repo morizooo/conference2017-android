@@ -28,8 +28,6 @@ public class SessionsViewModel extends BaseObservable {
 
     private List<Date> stimes;
 
-    private int colSpan = 5;
-
     public List<SessionViewModel> getSessions(Context context, int position) {
         List<Timetable> timetables = timetableRepository.read();
         List<Session> sessions = timetables.get(position).getSessions();
@@ -130,9 +128,7 @@ public class SessionsViewModel extends BaseObservable {
         return stimes;
     }
 
-    public int getColSpan() {
-        return colSpan;
-    }
+
 
     @Bindable
     public int getLoadingVisibility() {
