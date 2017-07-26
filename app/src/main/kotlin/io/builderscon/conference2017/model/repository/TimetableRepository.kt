@@ -4,7 +4,6 @@ import io.builderscon.client.model.Session
 import io.builderscon.conference2017.infra.file.FileConferenceDAO
 import io.builderscon.conference2017.infra.file.FileSessionApiDAO
 import io.builderscon.conference2017.model.Timetable
-import io.builderscon.conference2017.model.Track
 import java.text.SimpleDateFormat
 
 class TimetableRepository {
@@ -19,10 +18,10 @@ class TimetableRepository {
 
         return conference?.schedules?.map { schedule ->
 
-            val tracks: Map<String, List<Session>>? = sessions?.filter {
+            val sessions: List<Session> = sessions?.filter {
                 fmt.format(it.startsOn).equals(fmt.format(schedule.open))
-            }?.groupBy { it.room.name }
-            Timetable(schedule, tracks?.map { Track(it.key, it.value) })
+            } ?: emptyList()
+            Timetable(schedule, sessions)
         } ?: emptyList()
     }
 

@@ -17,24 +17,26 @@ import java.util.Map;
 
 import io.builderscon.client.model.Room;
 import io.builderscon.client.model.Session;
-import io.builderscon.conference2017.infra.file.FileSessionApiDAO;
+import io.builderscon.conference2017.model.Timetable;
+import io.builderscon.conference2017.model.repository.TimetableRepository;
 
 public class SessionsViewModel extends BaseObservable {
 
-    private FileSessionApiDAO sessionsRepository = new FileSessionApiDAO();
+    private TimetableRepository timetableRepository = new TimetableRepository();
 
     private List<Room> rooms;
 
     private List<Date> stimes;
 
-    public List<SessionViewModel> getSessions(Context context) {
+    private int colSpan = 5;
 
-        List<Session> sessions = sessionsRepository.findAll();
+    public List<SessionViewModel> getSessions(Context context, int position) {
+        List<Timetable> timetables = timetableRepository.read();
+        List<Session> sessions = timetables.get(position).getSessions();
         this.rooms = extractRooms(sessions);
         this.stimes = extractStimes(sessions);
         List<SessionViewModel> viewModels = Stream.of(sessions)
-                .map(session -> new SessionViewModel(
-                        session, context))
+                .map(session -> new SessionViewModel(session, context))
                 .toList();
 
         return adjustViewModels(viewModels, context);
@@ -126,6 +128,10 @@ public class SessionsViewModel extends BaseObservable {
 
     public List<Date> getStimes() {
         return stimes;
+    }
+
+    public int getColSpan() {
+        return colSpan;
     }
 
     @Bindable

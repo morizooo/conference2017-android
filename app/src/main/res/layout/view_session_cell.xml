@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    >
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
         <variable
             name="viewModel"
-            type="io.builderscon.conference2017.view.SessionViewModel"
-            />
+            type="io.builderscon.conference2017.view.SessionViewModel" />
     </data>
 
     <android.support.constraint.ConstraintLayout
@@ -18,8 +16,7 @@
         android:clipToPadding="false"
         app:sessionCellBackground="@{viewModel.backgroundResId}"
         app:twowayview_colSpan="@{viewModel.colSpan}"
-        app:twowayview_rowSpan="@{viewModel.rowSpan}"
-        >
+        app:twowayview_rowSpan="@{viewModel.rowSpan}">
 
         <TextView
             android:id="@+id/txt_time"
@@ -36,8 +33,7 @@
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/txt_title"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@+id/txt_minutes"
-            />
+            app:layout_constraintRight_toLeftOf="@+id/txt_minutes" />
 
         <TextView
             android:id="@+id/txt_minutes"
@@ -54,8 +50,7 @@
             android:textSize="@dimen/session_table_cell_title_text_size"
             app:layout_constraintBaseline_toBaselineOf="@+id/txt_time"
             app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintLeft_toRightOf="@+id/txt_time"
-            />
+            app:layout_constraintLeft_toRightOf="@+id/txt_time" />
 
         <TextView
             android:id="@+id/txt_title"
@@ -74,8 +69,7 @@
             android:textColor="@color/buildersconBlack"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_time"
-            />
+            app:layout_constraintTop_toBottomOf="@+id/txt_time" />
 
         <TextView
             android:id="@+id/txt_speaker_name"
@@ -99,8 +93,7 @@
             android:visibility="@{viewModel.normalSessionItemVisibility}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            />
+            app:layout_constraintRight_toRightOf="parent" />
 
     </android.support.constraint.ConstraintLayout>
 

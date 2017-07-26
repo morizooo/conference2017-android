@@ -40,8 +40,6 @@ import io.builderscon.conference2017.view.customview.TouchlessTwoWayView;
 
 public class SessionsFragment extends android.support.v4.app.Fragment {
 
-    public static final String TAG = SessionsFragment.class.getSimpleName();
-
     SessionsViewModel viewModel = new SessionsViewModel();
 
     private FragmentSessionsBinding binding;
@@ -63,7 +61,6 @@ public class SessionsFragment extends android.support.v4.app.Fragment {
         initView();
         return binding.getRoot();
     }
-
 
     @Override
     public void onResume() {
@@ -89,19 +86,12 @@ public class SessionsFragment extends android.support.v4.app.Fragment {
     }
 
     private void showSessions() {
-        this.renderSessions(viewModel.getSessions(getActivity()));
+        this.renderSessions(viewModel.getSessions(getActivity(), getArguments().getInt("tabIndex")));
     }
 
     private void initView() {
 
         binding.recyclerView.setHasFixedSize(true);
-
-        int sessionsTableWidth = getScreenWidth();
-        int minWidth = (int) getResources().getDimension(R.dimen.session_table_min_width);
-        if (sessionsTableWidth < minWidth) {
-            sessionsTableWidth = minWidth;
-        }
-        binding.recyclerView.setMinimumWidth(sessionsTableWidth);
 
         final Drawable divider = ResourcesCompat.getDrawable(getResources(), R.drawable.divider, null);
         binding.recyclerView.addItemDecoration(new DividerItemDecoration(divider));
@@ -136,14 +126,18 @@ public class SessionsFragment extends android.support.v4.app.Fragment {
         List<Date> stimes = viewModel.getStimes();
         List<Room> rooms = viewModel.getRooms();
 
-        if (binding.recyclerView.getLayoutManager() == null) {
-            RecyclerView.LayoutManager lm = new SpannableGridLayoutManager(
-                    TwoWayLayoutManager.Orientation.VERTICAL, rooms.size(), stimes.size());
-            binding.recyclerView.setLayoutManager(lm);
+        int sessionsTableWidth = getScreenWidth();
+        int minWidth = (int) getResources().getDimension(R.dimen.session_table_min_width);
+        if (rooms.size() > 2 && sessionsTableWidth < minWidth) {
+            sessionsTableWidth = minWidth;
         }
+        binding.recyclerView.setMinimumWidth(sessionsTableWidth);
+
+        RecyclerView.LayoutManager lm = new SpannableGridLayoutManager(
+                TwoWayLayoutManager.Orientation.VERTICAL, rooms.size(), stimes.size());
+        binding.recyclerView.setLayoutManager(lm);
 
         renderHeaderRow(rooms);
-
         adapter.reset(adjustedSessionViewModels);
     }
 

@@ -7,9 +7,9 @@ import java.util.*
 
 abstract class FileReader {
     val moshi: Moshi = Moshi.Builder()
-        .add(Date::class.java, Rfc3339DateJsonAdapter())
-        .add(KotlinJsonAdapterFactory())
-        .build()
+            .add(Date::class.java, Rfc3339DateJsonAdapter())
+            .add(KotlinJsonAdapterFactory())
+            .build()
 
     fun readJson(jsonFilePath: String) = FileReader::class.java.getResource(jsonFilePath).readText()
 }

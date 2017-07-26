@@ -11,7 +11,6 @@ import io.builderscon.conference2017.R
 
 class InformationFragment : Fragment() {
 
-
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 

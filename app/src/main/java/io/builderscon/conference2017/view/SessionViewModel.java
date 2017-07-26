@@ -1,4 +1,5 @@
 package io.builderscon.conference2017.view;
+
 import android.content.Context;
 import android.databinding.BaseObservable;
 import android.support.annotation.DrawableRes;
@@ -7,8 +8,8 @@ import android.view.View;
 
 import java.util.Date;
 
-import io.builderscon.conference2017.R;
 import io.builderscon.client.model.Session;
+import io.builderscon.conference2017.R;
 
 public class SessionViewModel extends BaseObservable {
 
@@ -54,7 +55,7 @@ public class SessionViewModel extends BaseObservable {
         if (session.getRoom() != null) {
             this.roomName = session.getRoom().getName();
         }
-        this.minutes = context.getString(R.string.session_minutes, session.getDuration()/60);
+        this.minutes = context.getString(R.string.session_minutes, session.getDuration() / 60);
 
         decideRowSpan(session);
         this.normalSessionItemVisibility = View.VISIBLE;
@@ -78,7 +79,7 @@ public class SessionViewModel extends BaseObservable {
 
     private void decideRowSpan(@NonNull Session session) {
         // Break time is over 30 min, but one row is good
-        if (session.getDuration()/ 60  > 30) {
+        if (session.getDuration() / 60 > 30) {
             this.rowSpan = this.rowSpan * 2;
             this.titleMaxLines = this.titleMaxLines * 2;
             this.speakerNameMaxLines = this.speakerNameMaxLines * 3;
