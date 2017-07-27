@@ -10,14 +10,14 @@
         android:id="@+id/navigationTabStrip"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        app:nts_color="@color/buildersconBlue"
-        app:nts_size="18dp"
-        app:nts_weight="4dp"
-        app:nts_type="line"
-        app:nts_gravity="bottom"
-        app:nts_animation_duration="150"
         app:nts_active_color="@color/buildersconBlue"
-        app:nts_inactive_color="@color/buildersconBlack" />
+        app:nts_animation_duration="150"
+        app:nts_color="@color/buildersconBlue"
+        app:nts_gravity="bottom"
+        app:nts_inactive_color="@color/buildersconBlack"
+        app:nts_size="18dp"
+        app:nts_type="line"
+        app:nts_weight="4dp" />
 
     <FrameLayout
         android:id="@+id/timetable"
