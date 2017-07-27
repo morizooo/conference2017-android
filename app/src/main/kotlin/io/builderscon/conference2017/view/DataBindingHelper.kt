@@ -3,12 +3,9 @@ package io.builderscon.conference2017.view
 import android.databinding.BindingAdapter
 import android.support.annotation.DrawableRes
 import android.view.View
-
 import com.squareup.picasso.Picasso
-
-import org.lucasr.twowayview.widget.SpannableGridLayoutManager
-
 import de.hdodenhof.circleimageview.CircleImageView
+import org.lucasr.twowayview.widget.SpannableGridLayoutManager
 
 object DataBindingHelper {
 
