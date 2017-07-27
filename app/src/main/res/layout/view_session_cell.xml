@@ -57,6 +57,7 @@
             android:id="@+id/speaker_image"
             android:layout_width="30dp"
             android:layout_height="30dp"
+            android:paddingLeft="4dp"
             app:civ_border_color="#FF000000"
             app:civ_border_width="1dp"
             app:imageUrl="@{viewModel.avatarURL}"

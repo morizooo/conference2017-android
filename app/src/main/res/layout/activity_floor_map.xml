@@ -27,6 +27,19 @@
 
         </android.support.v7.widget.Toolbar>
 
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center">
+
+            <com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
+                android:id="@+id/img_floormap"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@mipmap/floor_map" />
+
+        </FrameLayout>
+
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
