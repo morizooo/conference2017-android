@@ -27,21 +27,27 @@ class TimetableFragment : Fragment() {
             schedule.let { fmt.format(it.open) }
         }
 
+        loadSession(0)
+
         navigationTabStrip.apply {
             setTitles(*titles.toTypedArray())
             setTabIndex(0, true)
             onTabStripSelectedIndexListener = (object : NavigationTabStrip.OnTabStripSelectedIndexListener {
                 override fun onStartTabSelected(title: String?, index: Int) {
-                    val bundle = Bundle()
-                    bundle.putInt("tabIndex", index)
-                    val sessionsFragment = SessionsFragment()
-                    sessionsFragment.arguments = bundle
-                    childFragmentManager.beginTransaction().replace(R.id.timetable, sessionsFragment, "SessionsFragment").commit()
+                    loadSession(index)
                 }
 
                 override fun onEndTabSelected(title: String?, index: Int) {}
             })
         }
+    }
+
+    private fun loadSession(index: Int) {
+        val bundle = Bundle()
+        bundle.putInt("tabIndex", index)
+        val sessionsFragment = SessionsFragment()
+        sessionsFragment.arguments = bundle
+        childFragmentManager.beginTransaction().replace(R.id.timetable, sessionsFragment, "SessionsFragment").commit()
     }
 
 }
