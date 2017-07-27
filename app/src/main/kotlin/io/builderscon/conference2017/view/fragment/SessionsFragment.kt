@@ -118,7 +118,7 @@ class SessionsFragment : Fragment() {
             for ((id) in rooms) {
                 val view = LayoutInflater.from(activity).inflate(R.layout.view_sessions_header_cell, null)
                 val txtRoomName = view.findViewById<TextView>(R.id.txt_room_name)
-                txtRoomName.text = tracks[id]
+                txtRoomName.text = tracks[id]?.replace("(", "\n(")
                 val params = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 1f)
                 txtRoomName.layoutParams = params
                 binding!!.headerRow.addView(view)
@@ -191,13 +191,8 @@ class SessionsFragment : Fragment() {
 
 }
 
-class BindingHolder<T : ViewDataBinding>(context: Context, parent: ViewGroup, @LayoutRes layoutResId: Int) : RecyclerView.ViewHolder(LayoutInflater.from(context).inflate(layoutResId, parent, false)) {
-
-    val binding: T
-
-    init {
-        binding = DataBindingUtil.bind<T>(itemView)
-    }
+class BindingHolder<out T : ViewDataBinding>(context: Context, parent: ViewGroup, @LayoutRes layoutResId: Int) : RecyclerView.ViewHolder(LayoutInflater.from(context).inflate(layoutResId, parent, false)) {
+    val binding: T = DataBindingUtil.bind<T>(itemView)
 }
 
 

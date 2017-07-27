@@ -82,6 +82,9 @@ public class SessionViewModel extends BaseObservable {
         Intent intent = new Intent(view.getContext(), SessionDetailActivity.class);
         intent.putExtra("abstract", session.getAbstract());
         intent.putExtra("avatarURL", session.getSpeaker().getAvatarURL());
+        intent.putExtra("speakerName", session.getSpeaker().getNickname());
+        intent.putExtra("title", session.getTitle());
+        intent.putExtra("start", DateUtil.getLongFormatDate(session.getStartsOn()));
         view.getContext().startActivity(intent);
         Log.i("showSessionDetail", session.getTitle());
     }
