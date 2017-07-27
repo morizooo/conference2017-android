@@ -16,11 +16,16 @@ class SessionDetailActivity : AppCompatActivity() {
         supportActionBar!!.setDisplayShowTitleEnabled(false)
         toolbar_title.text = getString(R.string.title_session)
 
+        txt_title.text = intent.getStringExtra("title")
+        txt_session_start.text = intent.getStringExtra("start")
+        txt_speaker.text = intent.getStringExtra("speakerName")
+
         Picasso.with(this)
                 .load(intent.getStringExtra("avatarURL"))
-                .into(profile_image)
+                .into(img_speaker)
 
         val abstract = intent.getStringExtra("abstract")
+
 
         markdown_view.loadMarkdown(abstract)
     }

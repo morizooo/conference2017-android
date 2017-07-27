@@ -3,7 +3,6 @@ package io.builderscon.conference2017.view;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.BaseObservable;
-import android.os.Bundle;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.util.Log;
@@ -21,15 +20,13 @@ public class SessionViewModel extends BaseObservable {
 
     private String shortStime = "";
 
-    private String formattedDate = "";
-
     private String title = "";
-
-    private String speakerName = "";
 
     private String roomName = "";
 
     private String minutes = "";
+
+    private String avatarURL = "";
 
     private int rowSpan = 1;
 
@@ -37,40 +34,29 @@ public class SessionViewModel extends BaseObservable {
 
     private int titleMaxLines = 5;
 
-    private int speakerNameMaxLines = 1;
-
     @DrawableRes
     private int backgroundResId;
 
     private boolean isClickable = true;
 
-    private int normalSessionItemVisibility;
-
-
     SessionViewModel(@NonNull Session session, Context context) {
         this.session = session;
         this.shortStime = DateUtil.getHourMinute(session.getStartsOn());
-        this.formattedDate = DateUtil.getMonthDate(session.getStartsOn());
         this.title = session.getTitle();
 
-        if (session.getSpeaker() != null) {
-            this.speakerName = session.getSpeaker().getNickname();
-        }
-        if (session.getRoom() != null) {
-            this.roomName = session.getRoom().getName();
-        }
+        this.avatarURL = session.getSpeaker().getAvatarURL();
+        this.roomName = session.getRoom().getName();
         this.minutes = context.getString(R.string.session_minutes, session.getDuration() / 60);
 
         decideRowSpan(session);
-        this.normalSessionItemVisibility = View.VISIBLE;
     }
 
     private SessionViewModel(int rowSpan, int colSpan) {
         this.rowSpan = rowSpan;
         this.colSpan = colSpan;
         this.isClickable = false;
+        this.avatarURL = "";
         this.backgroundResId = R.drawable.bg_empty_session;
-        this.normalSessionItemVisibility = View.GONE;
     }
 
     static SessionViewModel createEmpty(int rowSpan) {
@@ -85,7 +71,6 @@ public class SessionViewModel extends BaseObservable {
         if (session.getDuration() / 60 > 30) {
             this.rowSpan = this.rowSpan * 2;
             this.titleMaxLines = this.titleMaxLines * 2;
-            this.speakerNameMaxLines = this.speakerNameMaxLines * 3;
         }
     }
 
@@ -97,6 +82,9 @@ public class SessionViewModel extends BaseObservable {
         Intent intent = new Intent(view.getContext(), SessionDetailActivity.class);
         intent.putExtra("abstract", session.getAbstract());
         intent.putExtra("avatarURL", session.getSpeaker().getAvatarURL());
+        intent.putExtra("speakerName", session.getSpeaker().getNickname());
+        intent.putExtra("title", session.getTitle());
+        intent.putExtra("start", DateUtil.getLongFormatDate(session.getStartsOn()));
         view.getContext().startActivity(intent);
         Log.i("showSessionDetail", session.getTitle());
     }
@@ -105,16 +93,8 @@ public class SessionViewModel extends BaseObservable {
         return shortStime;
     }
 
-    public String getFormattedDate() {
-        return formattedDate;
-    }
-
     public String getTitle() {
         return title;
-    }
-
-    public String getSpeakerName() {
-        return speakerName;
     }
 
     String getRoomName() {
@@ -145,12 +125,12 @@ public class SessionViewModel extends BaseObservable {
         return titleMaxLines;
     }
 
-    public int getSpeakerNameMaxLines() {
-        return speakerNameMaxLines;
+    public String getAvatarURL() {
+        return avatarURL;
     }
 
-    public int getNormalSessionItemVisibility() {
-        return normalSessionItemVisibility;
+    public void setAvatarURL(String avatarURL) {
+        this.avatarURL = avatarURL;
     }
 
 }
