@@ -65,9 +65,10 @@ dependencies {
     // Timetable
     compile 'org.lucasr.twowayview:core:1.0.0-SNAPSHOT@aar'
     compile 'org.lucasr.twowayview:layouts:1.0.0-SNAPSHOT@aar'
-    compile 'com.annimon:stream:1.1.5'
+    compile 'com.annimon:stream:1.1.5' // JAVAが消せれば不要
 
     // UI
+    compile 'me.dm7.barcodescanner:zxing:1.9.4'
     compile 'com.github.devlight.navigationtabstrip:navigationtabstrip:1.0.4'
     compile 'de.hdodenhof:circleimageview:2.1.0'
     compile 'com.squareup.picasso:picasso:2.5.2'

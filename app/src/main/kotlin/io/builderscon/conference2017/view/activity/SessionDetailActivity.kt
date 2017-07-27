@@ -1,7 +1,7 @@
 package io.builderscon.conference2017.view.activity
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import com.squareup.picasso.Picasso
 import io.builderscon.conference2017.R
 import kotlinx.android.synthetic.main.activity_session_detail.*

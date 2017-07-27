@@ -5,7 +5,7 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="io.builderscon.conference2017.view.activity.MainActivity">
+    tools:context=".view.activity.MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -24,8 +24,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:textSize="18dp"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                android:textSize="18dp" />
 
         </android.support.v7.widget.Toolbar>
 
@@ -33,6 +33,7 @@
             android:id="@+id/fragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"></FrameLayout>
+
     </LinearLayout>
 
 

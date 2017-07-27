@@ -3,6 +3,10 @@
     <string name="title_timetable">Timetable</string>
     <string name="title_information">Information</string>
     <string name="title_session">Session</string>
+    <string name="title_sponsor">Sponsor</string>
+    <string name="title_floormap">FloorMap</string>
+    <string name="title_qrcodereader">QRCodeReader</string>
+    <string name="title_lisense">License</string>
 
     <!-- Sessions -->
     <string name="session_minutes">(%1$d min)</string>
@@ -16,4 +20,5 @@
     <string name="session_unchecked">Unchecked this session</string>
     <string name="session_check">Check</string>
     <string name="session_uncheck">Uncheck</string>
+    <string name="title_activity_license">LicenseActivity</string>
 </resources>

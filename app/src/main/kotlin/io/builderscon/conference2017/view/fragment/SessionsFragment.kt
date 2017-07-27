@@ -25,7 +25,7 @@ import io.builderscon.conference2017.view.customview.TouchlessTwoWayView
 import org.lucasr.twowayview.TwoWayLayoutManager
 import org.lucasr.twowayview.widget.DividerItemDecoration
 import org.lucasr.twowayview.widget.SpannableGridLayoutManager
-import java.util.ArrayList
+import java.util.*
 
 
 class SessionsFragment : Fragment() {
