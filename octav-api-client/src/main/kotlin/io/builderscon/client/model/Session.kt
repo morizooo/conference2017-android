@@ -5,7 +5,6 @@ import khronos.plus
 import khronos.seconds
 import java.util.*
 
-
 data class Session(
     val id: String,
     val room: Room,

@@ -30,6 +30,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import io.builderscon.client.model.Room;
 import io.builderscon.conference2017.R;
@@ -125,6 +126,7 @@ public class SessionsFragment extends android.support.v4.app.Fragment {
     private void renderSessions(List<SessionViewModel> adjustedSessionViewModels) {
         List<Date> stimes = viewModel.getStimes();
         List<Room> rooms = viewModel.getRooms();
+        Map<String, String> tracks = viewModel.getTracksMap();
 
         int sessionsTableWidth = getScreenWidth();
         int minWidth = (int) getResources().getDimension(R.dimen.session_table_min_width);
@@ -137,16 +139,16 @@ public class SessionsFragment extends android.support.v4.app.Fragment {
                 TwoWayLayoutManager.Orientation.VERTICAL, rooms.size(), stimes.size());
         binding.recyclerView.setLayoutManager(lm);
 
-        renderHeaderRow(rooms);
+        renderHeaderRow(rooms, tracks);
         adapter.reset(adjustedSessionViewModels);
     }
 
-    private void renderHeaderRow(List<Room> rooms) {
+    private void renderHeaderRow(List<Room> rooms,Map<String, String> tracks) {
         if (binding.headerRow.getChildCount() == 0) {
             for (Room room : rooms) {
                 View view = LayoutInflater.from(getActivity()).inflate(R.layout.view_sessions_header_cell, null);
                 TextView txtRoomName = view.findViewById(R.id.txt_room_name);
-                txtRoomName.setText(room.getName());
+                txtRoomName.setText(tracks.get(room.getId()));
                 LinearLayout.LayoutParams params =
                         new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 1f);
                 txtRoomName.setLayoutParams(params);

@@ -1,15 +1,19 @@
 package io.builderscon.conference2017.view;
 
 import android.content.Context;
+import android.content.Intent;
 import android.databinding.BaseObservable;
+import android.os.Bundle;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.View;
 
 import java.util.Date;
 
 import io.builderscon.client.model.Session;
 import io.builderscon.conference2017.R;
+import io.builderscon.conference2017.view.activity.SessionDetailActivity;
 
 public class SessionViewModel extends BaseObservable {
 
@@ -38,7 +42,7 @@ public class SessionViewModel extends BaseObservable {
     @DrawableRes
     private int backgroundResId;
 
-    private boolean isClickable;
+    private boolean isClickable = true;
 
     private int normalSessionItemVisibility;
 
@@ -78,7 +82,6 @@ public class SessionViewModel extends BaseObservable {
     }
 
     private void decideRowSpan(@NonNull Session session) {
-        // Break time is over 30 min, but one row is good
         if (session.getDuration() / 60 > 30) {
             this.rowSpan = this.rowSpan * 2;
             this.titleMaxLines = this.titleMaxLines * 2;
@@ -90,14 +93,12 @@ public class SessionViewModel extends BaseObservable {
         return session.getStartsOn();
     }
 
-//    public void showSessionDetail(@SuppressWarnings("unused") View view) {
-//        if (navigator != null && session != null) {
-//            navigator.navigateToSessionDetail(session, MainActivity.class);
-//        }
-//    }
-
-    public boolean checkSession(@SuppressWarnings("UnusedParameters") View view) {
-        return true;
+    public void showSessionDetail(@SuppressWarnings("unused") View view) {
+        Intent intent = new Intent(view.getContext(), SessionDetailActivity.class);
+        intent.putExtra("abstract", session.getAbstract());
+        intent.putExtra("avatarURL", session.getSpeaker().getAvatarURL());
+        view.getContext().startActivity(intent);
+        Log.i("showSessionDetail", session.getTitle());
     }
 
     public String getShortStime() {

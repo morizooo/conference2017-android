@@ -2,7 +2,7 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
-    <dimen name="design_bottom_navigation_height" tools:override="true">50dp</dimen>
+    <dimen name="design_bottom_navigation_height" tools:override="true">44dp</dimen>
 
     <!-- Session -->
     <dimen name="session_table_header_row_height">36dp</dimen>

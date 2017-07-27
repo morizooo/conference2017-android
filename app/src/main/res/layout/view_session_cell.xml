@@ -13,7 +13,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@color/white"
+        android:clickable="@{viewModel.clickable}"
         android:clipToPadding="false"
+        android:onClick="@{viewModel::showSessionDetail}"
         app:sessionCellBackground="@{viewModel.backgroundResId}"
         app:twowayview_colSpan="@{viewModel.colSpan}"
         app:twowayview_rowSpan="@{viewModel.rowSpan}">
@@ -70,30 +72,6 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txt_time" />
-
-        <TextView
-            android:id="@+id/txt_speaker_name"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
-            android:layout_marginEnd="6dp"
-            android:layout_marginLeft="6dp"
-            android:layout_marginRight="6dp"
-            android:layout_marginStart="6dp"
-            android:layout_marginTop="@dimen/session_table_cell_text_margin"
-            android:drawableLeft="@drawable/ic_schedule_black_24dp"
-            android:drawablePadding="2dp"
-            android:drawableStart="@drawable/ic_schedule_black_24dp"
-            android:ellipsize="end"
-            android:maxLines="@{viewModel.speakerNameMaxLines}"
-            android:text="@{viewModel.speakerName}"
-            android:textAppearance="@style/TextCaption"
-            android:textColor="@color/buildersconBlue"
-            android:textSize="@dimen/session_table_cell_title_text_size"
-            android:visibility="@{viewModel.normalSessionItemVisibility}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent" />
 
     </android.support.constraint.ConstraintLayout>
 
