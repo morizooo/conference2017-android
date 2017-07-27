@@ -18,10 +18,9 @@ import io.builderscon.client.model.Room
 import io.builderscon.conference2017.R
 import io.builderscon.conference2017.databinding.FragmentSessionsBinding
 import io.builderscon.conference2017.databinding.ViewSessionCellBinding
-import io.builderscon.conference2017.view.SessionViewModel
-import io.builderscon.conference2017.view.SessionsViewModel
-import io.builderscon.conference2017.view.ViewUtil
 import io.builderscon.conference2017.view.customview.TouchlessTwoWayView
+import io.builderscon.conference2017.viewmodel.ISessionViewModel
+import io.builderscon.conference2017.viewmodel.SessionsViewModel
 import org.lucasr.twowayview.TwoWayLayoutManager
 import org.lucasr.twowayview.widget.DividerItemDecoration
 import org.lucasr.twowayview.widget.SpannableGridLayoutManager
@@ -81,7 +80,7 @@ class SessionsFragment : Fragment() {
             false
         }
 
-        ViewUtil.addOneTimeOnGlobalLayoutListener(binding!!.headerRow) {
+        binding!!.headerRow.addOneTimeOnGlobalLayoutListener {
             if (binding!!.headerRow.height > 0) {
                 binding!!.recyclerView.layoutParams.height = binding!!.root.height - binding!!.border.height
                 -binding!!.headerRow.height
@@ -93,7 +92,7 @@ class SessionsFragment : Fragment() {
         }
     }
 
-    private fun renderSessions(adjustedSessionViewModels: List<SessionViewModel>) {
+    private fun renderSessions(adjustedSessionViewModels: List<ISessionViewModel>) {
         val stimes = viewModel.stimes
         val rooms = viewModel.rooms
         val tracks = viewModel.tracksMap
@@ -175,7 +174,7 @@ class SessionsFragment : Fragment() {
         }
     }
 
-    inner class SessionsAdapter internal constructor(context: Context) : ArrayRecyclerAdapter<SessionViewModel, BindingHolder<ViewSessionCellBinding>>(context) {
+    inner class SessionsAdapter internal constructor(context: Context) : ArrayRecyclerAdapter<ISessionViewModel, BindingHolder<ViewSessionCellBinding>>(context) {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BindingHolder<ViewSessionCellBinding> {
             return BindingHolder(context, parent, R.layout.view_session_cell)
