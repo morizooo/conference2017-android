@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.view.View;
 
+import com.annimon.stream.Collectors;
 import com.annimon.stream.Stream;
 
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ import java.util.Map;
 
 import io.builderscon.client.model.Room;
 import io.builderscon.client.model.Session;
+import io.builderscon.client.model.Track;
 import io.builderscon.conference2017.model.Timetable;
 import io.builderscon.conference2017.model.repository.TimetableRepository;
 
@@ -28,9 +30,13 @@ public class SessionsViewModel extends BaseObservable {
 
     private List<Date> stimes;
 
+    private Map<String, String> tracksMap;
+
     public List<SessionViewModel> getSessions(Context context, int position) {
         List<Timetable> timetables = timetableRepository.read();
         List<Session> sessions = timetables.get(position).getSessions();
+        List<Track> tracks = timetables.get(position).getTracks();
+        this.tracksMap = extractTracksMap(tracks);
         this.rooms = extractRooms(sessions);
         this.stimes = extractStimes(sessions);
         List<SessionViewModel> viewModels = Stream.of(sessions)
@@ -103,6 +109,10 @@ public class SessionsViewModel extends BaseObservable {
         return DateUtil.getLongFormatDate(stime) + "_" + roomName;
     }
 
+    private Map<String, String> extractTracksMap(List<Track> tracks) {
+        return Stream.of(tracks).collect(Collectors.toMap(Track::getRoomId, Track::getName));
+    }
+
     private List<Date> extractStimes(List<Session> sessions) {
         return Stream.of(sessions)
                 .map(session -> session.getStartsOn())
@@ -115,7 +125,7 @@ public class SessionsViewModel extends BaseObservable {
         return Stream.of(sessions)
                 .map(session -> session.getRoom())
                 .filter(room -> room != null)
-                .sorted((lhs, rhs) -> lhs.getName().compareTo(rhs.getName()))
+                .sorted((lhs, rhs) ->  tracksMap.get(lhs.getId()).compareTo(tracksMap.get(rhs.getId())))
                 .distinct()
                 .toList();
     }
@@ -128,6 +138,9 @@ public class SessionsViewModel extends BaseObservable {
         return stimes;
     }
 
+    public Map<String, String> getTracksMap() {
+        return tracksMap;
+    }
 
 
     @Bindable

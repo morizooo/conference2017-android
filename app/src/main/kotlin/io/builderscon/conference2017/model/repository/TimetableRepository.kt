@@ -16,12 +16,15 @@ class TimetableRepository {
         val conference = conferenceRepository.findAll()
         val sessions = sessionRepository.findAll()
 
+        val tracks = conference?.tracks ?: emptyList()
+
         return conference?.schedules?.map { schedule ->
 
             val sessions: List<Session> = sessions?.filter {
                 fmt.format(it.startsOn).equals(fmt.format(schedule.open))
             } ?: emptyList()
-            Timetable(schedule, sessions)
+
+            Timetable(schedule, tracks, sessions)
         } ?: emptyList()
     }
 
