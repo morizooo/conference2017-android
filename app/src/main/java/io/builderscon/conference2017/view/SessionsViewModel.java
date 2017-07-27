@@ -32,7 +32,7 @@ public class SessionsViewModel extends BaseObservable {
 
     private Map<String, String> tracksMap;
 
-    public List<SessionViewModel> getSessions(Context context, int position) {
+    List<SessionViewModel> getSessions(Context context, int position) {
         List<Timetable> timetables = timetableRepository.read();
         List<Session> sessions = timetables.get(position).getSessions();
         List<Track> tracks = timetables.get(position).getTracks();
@@ -43,10 +43,10 @@ public class SessionsViewModel extends BaseObservable {
                 .map(session -> new SessionViewModel(session, context))
                 .toList();
 
-        return adjustViewModels(viewModels, context);
+        return adjustViewModels(viewModels);
     }
 
-    private List<SessionViewModel> adjustViewModels(List<SessionViewModel> sessionViewModels, Context context) {
+    private List<SessionViewModel> adjustViewModels(List<SessionViewModel> sessionViewModels) {
         // Prepare sessions map
         final Map<String, SessionViewModel> sessionMap = new LinkedHashMap<>();
         for (SessionViewModel viewModel : sessionViewModels) {
@@ -60,27 +60,14 @@ public class SessionsViewModel extends BaseObservable {
 
         final List<SessionViewModel> adjustedViewModels = new ArrayList<>();
 
-        // Format date that user can see. Ex) 9, March
-        String lastFormattedDate = null;
         for (Date stime : stimes) {
-            if (lastFormattedDate == null) {
-                lastFormattedDate = DateUtil.getMonthDate(stime);
-            }
-
             final List<SessionViewModel> sameTimeViewModels = new ArrayList<>();
             int maxRowSpan = 1;
             for (int i = 0, size = rooms.size(); i < size; i++) {
                 Room room = rooms.get(i);
                 SessionViewModel viewModel = sessionMap.get(generateStimeRoomKey(stime, room.getName()));
                 if (viewModel != null) {
-                    if (!lastFormattedDate.equals(viewModel.getFormattedDate())) {
-                        // Change the date
-                        lastFormattedDate = viewModel.getFormattedDate();
-                        // Add empty row which divides the days
-                        adjustedViewModels.add(SessionViewModel.createEmpty(1, rooms.size()));
-                    }
                     sameTimeViewModels.add(viewModel);
-
                     if (viewModel.getRowSpan() > maxRowSpan) {
                         maxRowSpan = viewModel.getRowSpan();
                     }
@@ -115,7 +102,7 @@ public class SessionsViewModel extends BaseObservable {
 
     private List<Date> extractStimes(List<Session> sessions) {
         return Stream.of(sessions)
-                .map(session -> session.getStartsOn())
+                .map(Session::getStartsOn)
                 .sorted()
                 .distinct()
                 .toList();
@@ -123,9 +110,9 @@ public class SessionsViewModel extends BaseObservable {
 
     private List<Room> extractRooms(List<Session> sessions) {
         return Stream.of(sessions)
-                .map(session -> session.getRoom())
+                .map(Session::getRoom)
                 .filter(room -> room != null)
-                .sorted((lhs, rhs) ->  tracksMap.get(lhs.getId()).compareTo(tracksMap.get(rhs.getId())))
+                .sorted((lhs, rhs) -> tracksMap.get(lhs.getId()).compareTo(tracksMap.get(rhs.getId())))
                 .distinct()
                 .toList();
     }

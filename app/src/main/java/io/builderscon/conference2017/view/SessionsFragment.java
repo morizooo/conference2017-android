@@ -11,6 +11,7 @@ import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.UiThread;
+import android.support.v4.app.Fragment;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.Display;
@@ -39,18 +40,13 @@ import io.builderscon.conference2017.databinding.ViewSessionCellBinding;
 import io.builderscon.conference2017.view.customview.TouchlessTwoWayView;
 
 
-public class SessionsFragment extends android.support.v4.app.Fragment {
+public class SessionsFragment extends Fragment {
 
     SessionsViewModel viewModel = new SessionsViewModel();
 
     private FragmentSessionsBinding binding;
 
     private SessionsAdapter adapter;
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-    }
 
     @Nullable
     @Override
@@ -67,16 +63,6 @@ public class SessionsFragment extends android.support.v4.app.Fragment {
     public void onResume() {
         super.onResume();
         showSessions();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
     }
 
     private int getScreenWidth() {
@@ -143,7 +129,7 @@ public class SessionsFragment extends android.support.v4.app.Fragment {
         adapter.reset(adjustedSessionViewModels);
     }
 
-    private void renderHeaderRow(List<Room> rooms,Map<String, String> tracks) {
+    private void renderHeaderRow(List<Room> rooms, Map<String, String> tracks) {
         if (binding.headerRow.getChildCount() == 0) {
             for (Room room : rooms) {
                 View view = LayoutInflater.from(getActivity()).inflate(R.layout.view_sessions_header_cell, null);
@@ -154,25 +140,6 @@ public class SessionsFragment extends android.support.v4.app.Fragment {
                 txtRoomName.setLayoutParams(params);
                 binding.headerRow.addView(view);
             }
-        }
-    }
-
-    public class SessionsAdapter extends ArrayRecyclerAdapter<SessionViewModel, BindingHolder<ViewSessionCellBinding>> {
-
-        SessionsAdapter(@NonNull Context context) {
-            super(context);
-        }
-
-        @Override
-        public BindingHolder<ViewSessionCellBinding> onCreateViewHolder(ViewGroup parent, int viewType) {
-            return new BindingHolder<>(getContext(), parent, R.layout.view_session_cell);
-        }
-
-        @Override
-        public void onBindViewHolder(BindingHolder<ViewSessionCellBinding> holder, int position) {
-            SessionViewModel viewModel = getItem(position);
-            holder.binding.setViewModel(viewModel);
-            holder.binding.executePendingBindings();
         }
     }
 
@@ -216,7 +183,6 @@ public class SessionsFragment extends android.support.v4.app.Fragment {
                     return false;
                 }
 
-
                 @Override
                 public void onLongPress(MotionEvent motionEvent) {
                 }
@@ -228,8 +194,27 @@ public class SessionsFragment extends android.support.v4.app.Fragment {
             });
         }
 
-        public void sendCancelIfScrolling(MotionEvent event) {
+        void sendCancelIfScrolling(MotionEvent event) {
             gestureDetector.onTouchEvent(event);
+        }
+    }
+
+    public class SessionsAdapter extends ArrayRecyclerAdapter<SessionViewModel, BindingHolder<ViewSessionCellBinding>> {
+
+        SessionsAdapter(@NonNull Context context) {
+            super(context);
+        }
+
+        @Override
+        public BindingHolder<ViewSessionCellBinding> onCreateViewHolder(ViewGroup parent, int viewType) {
+            return new BindingHolder<>(getContext(), parent, R.layout.view_session_cell);
+        }
+
+        @Override
+        public void onBindViewHolder(BindingHolder<ViewSessionCellBinding> holder, int position) {
+            SessionViewModel viewModel = getItem(position);
+            holder.binding.setViewModel(viewModel);
+            holder.binding.executePendingBindings();
         }
     }
 
@@ -237,10 +222,9 @@ public class SessionsFragment extends android.support.v4.app.Fragment {
 
 class BindingHolder<T extends ViewDataBinding> extends RecyclerView.ViewHolder {
 
-    public final T binding;
+    final T binding;
 
-    public BindingHolder(@NonNull Context context, @NonNull ViewGroup parent,
-            @LayoutRes int layoutResId) {
+    BindingHolder(@NonNull Context context, @NonNull ViewGroup parent, @LayoutRes int layoutResId) {
         super(LayoutInflater.from(context).inflate(layoutResId, parent, false));
         binding = DataBindingUtil.bind(itemView);
     }
@@ -250,51 +234,37 @@ class BindingHolder<T extends ViewDataBinding> extends RecyclerView.ViewHolder {
 abstract class ArrayRecyclerAdapter<T, VH extends RecyclerView.ViewHolder>
         extends RecyclerView.Adapter<VH> {
 
-    protected final List<T> list;
+    private final List<T> list;
 
     final Context context;
 
-    public ArrayRecyclerAdapter(@NonNull Context context) {
+    ArrayRecyclerAdapter(@NonNull Context context) {
         this(context, new ArrayList<>());
     }
 
-    public ArrayRecyclerAdapter(@NonNull Context context, @NonNull List<T> list) {
+
+    private ArrayRecyclerAdapter(@NonNull Context context, @NonNull List<T> list) {
         this.context = context;
         this.list = list;
     }
 
     @UiThread
-    public void reset(Collection<T> items) {
+    void reset(Collection<T> items) {
         clear();
         addAll(items);
         notifyDataSetChanged();
     }
 
-    public void clear() {
+    private void clear() {
         list.clear();
     }
 
-    public void addAll(Collection<T> items) {
+    private void addAll(Collection<T> items) {
         list.addAll(items);
     }
 
-    public T getItem(int position) {
+    T getItem(int position) {
         return list.get(position);
-    }
-
-    public void addItem(T item) {
-        list.add(item);
-    }
-
-    public void addAll(int position, Collection<T> items) {
-        list.addAll(position, items);
-    }
-
-    @UiThread
-    public void addAllWithNotify(Collection<T> items) {
-        int position = getItemCount();
-        addAll(items);
-        notifyItemInserted(position);
     }
 
     @Override

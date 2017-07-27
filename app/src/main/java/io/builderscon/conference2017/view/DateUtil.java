@@ -10,21 +10,12 @@ import java.util.Locale;
 
 public class DateUtil {
 
-    private static final String FORMAT_MMDD = "MMMd";
-
     private static final String FORMAT_KKMM = "kk:mm";
 
     private static final String FORMAT_YYYYMMDDKKMM = "yyyyMMMdkkmm";
 
     private DateUtil() {
         throw new AssertionError("no instance!");
-    }
-
-    @NonNull
-    public static String getMonthDate(Date date) {
-        String pattern = DateFormat.getBestDateTimePattern(Locale.getDefault(), FORMAT_MMDD);
-        return new SimpleDateFormat(pattern, Locale.getDefault()).format(date);
-
     }
 
     @NonNull

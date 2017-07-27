@@ -4,9 +4,23 @@ import android.databinding.BindingAdapter;
 import android.support.annotation.DrawableRes;
 import android.view.View;
 
+import com.squareup.picasso.Picasso;
+
 import org.lucasr.twowayview.widget.SpannableGridLayoutManager;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class DataBindingHelper {
+
+    @BindingAdapter({"imageUrl"})
+    public static void setImageUrl(CircleImageView view, String imageUrl) {
+        if (!imageUrl.isEmpty()) {
+            Picasso.with(view.getContext())
+                    .load(imageUrl)
+                    .into(view);
+        }
+
+    }
 
     @BindingAdapter("sessionCellBackground")
     public static void setSessionCellBackground(View view, @DrawableRes int backgroundResId) {

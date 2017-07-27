@@ -5,6 +5,17 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 
 public class ViewUtil {
+    public static void addOneTimeOnGlobalLayoutListener(@NonNull View view, @NonNull OnGlobalLayoutListener onGlobalLayoutListener) {
+        view.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                if (onGlobalLayoutListener.onGlobalLayout()) {
+                    view.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                }
+            }
+        });
+    }
+
     /**
      * @see ViewTreeObserver
      */
@@ -17,16 +28,5 @@ public class ViewUtil {
          * @see android.view.ViewTreeObserver.OnGlobalLayoutListener
          */
         boolean onGlobalLayout();
-    }
-
-    public static void addOneTimeOnGlobalLayoutListener(@NonNull View view, @NonNull OnGlobalLayoutListener onGlobalLayoutListener) {
-        view.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                if (onGlobalLayoutListener.onGlobalLayout()) {
-                    view.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                }
-            }
-        });
     }
 }
