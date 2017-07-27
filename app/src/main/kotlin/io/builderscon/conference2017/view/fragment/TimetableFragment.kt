@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import com.gigamole.navigationtabstrip.NavigationTabStrip
 import io.builderscon.conference2017.R
 import io.builderscon.conference2017.model.repository.TimetableRepository
-import io.builderscon.conference2017.view.SessionsFragment
 import kotlinx.android.synthetic.main.fragment_timetable.*
 import java.text.SimpleDateFormat
 

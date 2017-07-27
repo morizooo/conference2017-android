@@ -32,7 +32,7 @@ public class SessionsViewModel extends BaseObservable {
 
     private Map<String, String> tracksMap;
 
-    List<SessionViewModel> getSessions(Context context, int position) {
+    public List<SessionViewModel> getSessions(Context context, int position) {
         List<Timetable> timetables = timetableRepository.read();
         List<Session> sessions = timetables.get(position).getSessions();
         List<Track> tracks = timetables.get(position).getTracks();
