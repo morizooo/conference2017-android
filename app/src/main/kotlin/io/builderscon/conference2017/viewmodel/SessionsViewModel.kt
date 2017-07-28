@@ -23,7 +23,7 @@ class SessionsViewModel : BaseObservable() {
 
     var tracksMap: Map<String, String> = mapOf()
 
-    fun getSessions(context: Context, position: Int): List<ISessionViewModel> {
+    fun getSessions(context: Context, position: Int): List<SessionViewModel> {
         val timetables = timetableRepository.read()
         val sessions = timetables[position].sessions
         val tracks = timetables[position].tracks
@@ -31,13 +31,13 @@ class SessionsViewModel : BaseObservable() {
         this.rooms = extractRooms(sessions)
         this.stimes = extractStimes(sessions)
         val viewModels = Stream.of(sessions)
-                .map<SessionViewModel> { session -> SessionViewModel(session, context) }
-                .toList()
+            .map<SessionViewModel> { session -> SessionViewModel(session, context) }
+            .toList()
 
         return adjustViewModels(viewModels)
     }
 
-    private fun adjustViewModels(sessionViewModels: List<SessionViewModel>): List<ISessionViewModel> {
+    private fun adjustViewModels(sessionViewModels: List<SessionViewModel>): List<SessionViewModel> {
         // Prepare sessions map
         val sessionMap = LinkedHashMap<String, SessionViewModel>()
         for (viewModel in sessionViewModels) {
@@ -49,10 +49,10 @@ class SessionsViewModel : BaseObservable() {
             sessionMap.put(generateStimeRoomKey(viewModel.getStime(), roomName), viewModel)
         }
 
-        val adjustedViewModels = ArrayList<ISessionViewModel>()
+        val adjustedViewModels = ArrayList<SessionViewModel>()
 
         stimes.forEach { stime ->
-            val sameTimeViewModels = ArrayList<ISessionViewModel>()
+            val sameTimeViewModels = ArrayList<SessionViewModel>()
             var maxRowSpan = 1
             (0 until rooms.size).forEach { index ->
                 val (_, _, name) = rooms[index]
@@ -63,7 +63,7 @@ class SessionsViewModel : BaseObservable() {
                         maxRowSpan = vm.rowSpan
                     }
                 } ?: run {
-                    val empty = EmptySessionViewModel(1)
+                    val empty = SessionViewModel.createEmpty(1)
                     sameTimeViewModels.add(empty)
                 }
             }
@@ -73,38 +73,9 @@ class SessionsViewModel : BaseObservable() {
                 val rowSpan = it.rowSpan
                 if (rowSpan < maxRowSpan) {
                     // Fill for empty cell
-                    copiedTmpViewModels.add(EmptySessionViewModel(maxRowSpan - rowSpan))
+                    copiedTmpViewModels.add(SessionViewModel.createEmpty(maxRowSpan - rowSpan))
                 }
             }
-
-            adjustedViewModels.addAll(copiedTmpViewModels)
-        }
-        for (stime in stimes) {
-            val sameTimeViewModels = ArrayList<ISessionViewModel>()
-            var maxRowSpan = 1
-            var i = 0
-            val size = rooms.size
-            while (i < size) {
-                val (_, _, name) = rooms[i]
-                val viewModel = sessionMap[generateStimeRoomKey(stime, name)]
-                viewModel?.let { vm ->
-                    sameTimeViewModels.add(viewModel)
-                    if (vm.rowSpan > maxRowSpan) {
-                        maxRowSpan = vm.rowSpan
-                    }
-                } ?: run {
-                    val empty = EmptySessionViewModel(1)
-                    sameTimeViewModels.add(empty)
-                }
-                i++
-            }
-
-            val copiedTmpViewModels = ArrayList(sameTimeViewModels)
-            sameTimeViewModels
-                    .map { it.rowSpan }
-                    .filter { it < maxRowSpan }
-                    .mapTo(// Fill for empty cell
-                            copiedTmpViewModels) { EmptySessionViewModel(maxRowSpan - it) }
 
             adjustedViewModels.addAll(copiedTmpViewModels)
         }
@@ -126,9 +97,9 @@ class SessionsViewModel : BaseObservable() {
 
     private fun extractRooms(sessions: List<Session>): List<Room> {
         return sessions.map { it.room }
-                .filterNotNull()
-                .sortedBy { tracksMap[it.id] }
-                .distinct()
+            .filterNotNull()
+            .sortedBy { tracksMap[it.id] }
+            .distinct()
     }
 
 
