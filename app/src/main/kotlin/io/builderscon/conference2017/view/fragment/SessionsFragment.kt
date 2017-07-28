@@ -18,10 +18,9 @@ import io.builderscon.client.model.Room
 import io.builderscon.conference2017.R
 import io.builderscon.conference2017.databinding.FragmentSessionsBinding
 import io.builderscon.conference2017.databinding.ViewSessionCellBinding
-import io.builderscon.conference2017.view.SessionViewModel
-import io.builderscon.conference2017.view.SessionsViewModel
-import io.builderscon.conference2017.view.ViewUtil
 import io.builderscon.conference2017.view.customview.TouchlessTwoWayView
+import io.builderscon.conference2017.viewmodel.SessionViewModel
+import io.builderscon.conference2017.viewmodel.SessionsViewModel
 import org.lucasr.twowayview.TwoWayLayoutManager
 import org.lucasr.twowayview.widget.DividerItemDecoration
 import org.lucasr.twowayview.widget.SpannableGridLayoutManager
@@ -31,17 +30,17 @@ import java.util.*
 class SessionsFragment : Fragment() {
     internal var viewModel = SessionsViewModel()
 
-    private var binding: FragmentSessionsBinding? = null
+    lateinit var binding: FragmentSessionsBinding
 
-    private var adapter: SessionsFragment.SessionsAdapter? = null
+    lateinit var adapter: SessionsFragment.SessionsAdapter
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         setHasOptionsMenu(true)
         binding = FragmentSessionsBinding.inflate(inflater!!, container, false)
-        binding!!.viewModel = viewModel
+        binding.viewModel = viewModel
 
         initView()
-        return binding!!.getRoot()
+        return binding.getRoot()
     }
 
     override fun onResume() {
@@ -62,35 +61,35 @@ class SessionsFragment : Fragment() {
 
     private fun initView() {
 
-        binding!!.recyclerView.setHasFixedSize(true)
+        binding.recyclerView.setHasFixedSize(true)
 
         val divider = ResourcesCompat.getDrawable(resources, R.drawable.divider, null)
-        binding!!.recyclerView.addItemDecoration(DividerItemDecoration(divider))
+        binding.recyclerView.addItemDecoration(DividerItemDecoration(divider))
 
         adapter = SessionsAdapter(activity)
-        binding!!.recyclerView.adapter = adapter
+        binding.recyclerView.adapter = adapter
 
-        val clickCanceller = ClickGestureCanceller(activity, binding!!.recyclerView)
+        val clickCanceller = ClickGestureCanceller(activity, binding.recyclerView)
 
-        binding!!.root.setOnTouchListener { _, event ->
+        binding.root.setOnTouchListener { _, event ->
             clickCanceller.sendCancelIfScrolling(event)
 
             val e = MotionEvent.obtain(event)
-            e.setLocation(e.x + binding!!.root.scrollX, e.y - binding!!.headerRow.height)
-            binding!!.recyclerView.forceToDispatchTouchEvent(e)
+            e.setLocation(e.x + binding.root.scrollX, e.y - binding.headerRow.height)
+            binding.recyclerView.forceToDispatchTouchEvent(e)
             false
         }
 
-        ViewUtil.addOneTimeOnGlobalLayoutListener(binding!!.headerRow) {
-            if (binding!!.headerRow.height > 0) {
-                binding!!.recyclerView.layoutParams.height = binding!!.root.height - binding!!.border.height
-                -binding!!.headerRow.height
-                binding!!.recyclerView.requestLayout()
-                return@addOneTimeOnGlobalLayoutListener true
-            } else {
-                return@addOneTimeOnGlobalLayoutListener false
-            }
-        }
+//        binding.headerRow.addOneTimeOnGlobalLayoutListener {
+//            if (binding.headerRow.height > 0) {
+//                binding.recyclerView.layoutParams.height = binding.root.height - binding.border.height
+//                -binding.headerRow.height
+//                binding.recyclerView.requestLayout()
+//                return@addOneTimeOnGlobalLayoutListener true
+//            } else {
+//                return@addOneTimeOnGlobalLayoutListener false
+//            }
+//        }
     }
 
     private fun renderSessions(adjustedSessionViewModels: List<SessionViewModel>) {
@@ -103,25 +102,25 @@ class SessionsFragment : Fragment() {
         if (rooms.size > 2 && sessionsTableWidth < minWidth) {
             sessionsTableWidth = minWidth
         }
-        binding!!.recyclerView.minimumWidth = sessionsTableWidth
+        binding.recyclerView.minimumWidth = sessionsTableWidth
 
         val lm = SpannableGridLayoutManager(
                 TwoWayLayoutManager.Orientation.VERTICAL, rooms.size, stimes.size)
-        binding!!.recyclerView.layoutManager = lm
+        binding.recyclerView.layoutManager = lm
 
         renderHeaderRow(rooms, tracks)
-        adapter!!.reset(adjustedSessionViewModels)
+        adapter.reset(adjustedSessionViewModels)
     }
 
     private fun renderHeaderRow(rooms: List<Room>, tracks: Map<String, String>) {
-        if (binding!!.headerRow.childCount == 0) {
+        if (binding.headerRow.childCount == 0) {
             for ((id) in rooms) {
                 val view = LayoutInflater.from(activity).inflate(R.layout.view_sessions_header_cell, null)
                 val txtRoomName = view.findViewById<TextView>(R.id.txt_room_name)
                 txtRoomName.text = tracks[id]?.replace("(", "\n(")
                 val params = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 1f)
                 txtRoomName.layoutParams = params
-                binding!!.headerRow.addView(view)
+                binding.headerRow.addView(view)
             }
         }
     }

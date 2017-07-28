@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="io.builderscon.conference2017.view.SessionsViewModel" />
+            type="io.builderscon.conference2017.viewmodel.SessionsViewModel" />
     </data>
 
     <FrameLayout

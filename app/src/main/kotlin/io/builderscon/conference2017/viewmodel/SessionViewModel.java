@@ -1,18 +1,23 @@
-package io.builderscon.conference2017.view;
+package io.builderscon.conference2017.viewmodel;
 
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.BaseObservable;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 import io.builderscon.client.model.Session;
 import io.builderscon.conference2017.R;
 import io.builderscon.conference2017.view.activity.SessionDetailActivity;
+
 
 public class SessionViewModel extends BaseObservable {
 
@@ -133,4 +138,33 @@ public class SessionViewModel extends BaseObservable {
         this.avatarURL = avatarURL;
     }
 
+}
+
+class DateUtil {
+
+    private static final String FORMAT_KKMM = "kk:mm";
+
+    private static final String FORMAT_YYYYMMDDKKMM = "yyyyMMMdkkmm";
+
+    private DateUtil() {
+        throw new AssertionError("no instance!");
+    }
+
+    @NonNull
+    public static String getHourMinute(Date date) {
+        String pattern = DateFormat.getBestDateTimePattern(Locale.getDefault(), FORMAT_KKMM);
+        return new SimpleDateFormat(pattern, Locale.getDefault()).format(date);
+
+    }
+
+    @NonNull
+    public static String getLongFormatDate(@Nullable Date date) {
+        if (date == null) {
+            return "";
+        }
+
+        String pattern = DateFormat.getBestDateTimePattern(Locale.getDefault(), FORMAT_YYYYMMDDKKMM);
+        return new SimpleDateFormat(pattern, Locale.getDefault()).format(date);
+
+    }
 }
