@@ -27,7 +27,7 @@ class SessionDetailActivity : AppCompatActivity() {
         val abstract = intent.getStringExtra("abstract")
 
         tag_group.setTags(listOf(intent.getStringExtra("minutes"), intent.getStringExtra("roomName"), intent.getStringExtra("materialLevel")))
-        
+
         markdown_view.loadMarkdown(abstract)
     }
 }

@@ -1,0 +1,60 @@
+- artifact: org.lucasr.twowayview:layouts:+
+  name: TwoWayView Layouts Library
+  copyrightHolder: 2013 Lucas Rocha
+  license: The Apache Software License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
+  url: https://github.com/lucasr/twoway-view
+- artifact: com.squareup.okhttp3:okhttp:+
+  name: OkHttp
+  copyrightHolder: 2016 Square, Inc.
+  license: The Apache Software License, Version 2.0
+- artifact: com.github.hotchemi:khronos:+
+  name: khronos
+  copyrightHolder: 2016 Shintaro Katafuchi
+  license: The Apache Software License, Version 2.0
+- artifact: me.dm7.barcodescanner:zxing:+
+  name: ZXing Scanner View
+  copyrightHolder: 2014 Dushyanth Maguluru
+  license: The Apache Software License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
+  url: https://github.com/dm77/barcodescanner
+- artifact: com.squareup.moshi:moshi:+
+  name: Moshi
+  copyrightHolder: 2015 Square, Inc.
+  license: The Apache Software License, Version 2.0
+- artifact: com.squareup.retrofit2:retrofit:+
+  name: Retrofit
+  copyrightHolder: 2013 Square, Inc.
+  license: The Apache Software License, Version 2.0
+- artifact: de.hdodenhof:circleimageview:+
+  name: CircleImageView
+  copyrightHolder: 2014 - 2017 Henning Dodenhof
+  license: The Apache Software License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
+  url: https://github.com/hdodenhof/CircleImageView
+- artifact: us.feras.mdv:markdownview:+
+  name: markdownview
+  copyrightHolder: 2011 Feras Alnatsheh
+  license: The Apache Software License, Version 2.0
+- artifact: com.squareup.picasso:picasso:+
+  name: Picasso
+  copyrightHolder: 2013 Square, Inc.
+  license: The Apache Software License, Version 2.0
+- artifact: com.github.devlight.navigationtabstrip:navigationtabstrip:+
+  name: NavigationTabStrip
+  copyrightHolder: 2016 Basil Miller
+  license: The Apache Software License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
+  url: https://github.com/DevLight-Mobile-Agency/NavigationTabStrip
+- artifact: com.davemorrissey.labs:subsampling-scale-image-view:+
+  name: SubsamplingScaleImageView
+  copyrightHolder: 2016 David Morrissey
+  license: The Apache Software License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
+  url: https://github.com/davemorrissey/subsampling-scale-image-view
+- artifact: me.gujun.android.taggroup:library:+
+  name: Android TagGroup Library
+  copyrightHolder: 2015 Jun Gu
+  license: The Apache Software License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
+  url: https://github.com/2dxgujun/AndroidTagGroup
