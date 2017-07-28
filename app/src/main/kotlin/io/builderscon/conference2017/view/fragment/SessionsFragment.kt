@@ -80,20 +80,10 @@ class SessionsFragment : Fragment() {
             false
         }
 
-//        binding.headerRow.addOneTimeOnGlobalLayoutListener {
-//            if (binding.headerRow.height > 0) {
-//                binding.recyclerView.layoutParams.height = binding.root.height - binding.border.height
-//                -binding.headerRow.height
-//                binding.recyclerView.requestLayout()
-//                return@addOneTimeOnGlobalLayoutListener true
-//            } else {
-//                return@addOneTimeOnGlobalLayoutListener false
-//            }
-//        }
     }
 
     private fun renderSessions(adjustedSessionViewModels: List<SessionViewModel>) {
-        val stimes = viewModel.stimes
+        val stimes = viewModel.sTimes
         val rooms = viewModel.rooms
         val tracks = viewModel.tracksMap
 

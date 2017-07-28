@@ -17,9 +17,7 @@ class SessionsViewModel : BaseObservable() {
     private val timetableRepository = TimetableRepository()
 
     var rooms: List<Room> = listOf()
-
-    var stimes: List<Date> = listOf()
-
+    var sTimes: List<Date> = listOf()
     var tracksMap: Map<String, String> = mapOf()
 
     fun getSessions(context: Context, position: Int): List<SessionViewModel> {
@@ -28,7 +26,7 @@ class SessionsViewModel : BaseObservable() {
         val tracks = timetables[position].tracks
         this.tracksMap = extractTracksMap(tracks)
         this.rooms = extractRooms(sessions)
-        this.stimes = extractStimes(sessions)
+        this.sTimes = extractStimes(sessions)
         val viewModels = sessions.map { session -> SessionViewModel(session, context) }.toList()
 
         return adjustViewModels(viewModels)
@@ -38,9 +36,8 @@ class SessionsViewModel : BaseObservable() {
         // Prepare sessions map
         val sessionMap = LinkedHashMap<String, SessionViewModel>()
         for (viewModel in sessionViewModels) {
-            var roomName = viewModel.getRoomName()
+            var roomName = viewModel.roomName
             if (TextUtils.isEmpty(roomName)) {
-                // In the case of Welcome talk and lunch time, set dummy room
                 roomName = rooms[0].name
             }
             sessionMap.put(generateStimeRoomKey(viewModel.getStime(), roomName), viewModel)
@@ -48,12 +45,12 @@ class SessionsViewModel : BaseObservable() {
 
         val adjustedViewModels = ArrayList<SessionViewModel>()
 
-        stimes.forEach { stime ->
+        sTimes.forEach { sTime ->
             val sameTimeViewModels = ArrayList<SessionViewModel>()
             var maxRowSpan = 1
             (0 until rooms.size).forEach { index ->
                 val (_, _, name) = rooms[index]
-                val viewModel = sessionMap[generateStimeRoomKey(stime, name)]
+                val viewModel = sessionMap[generateStimeRoomKey(sTime, name)]
                 viewModel?.let { vm ->
                     sameTimeViewModels.add(viewModel)
                     if (vm.rowSpan > maxRowSpan) {
@@ -94,9 +91,9 @@ class SessionsViewModel : BaseObservable() {
 
     private fun extractRooms(sessions: List<Session>): List<Room> {
         return sessions.map { it.room }
-            .filterNotNull()
-            .sortedBy { tracksMap[it.id] }
-            .distinct()
+                .filterNotNull()
+                .sortedBy { tracksMap[it.id] }
+                .distinct()
     }
 
 

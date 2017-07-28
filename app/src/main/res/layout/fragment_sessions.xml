@@ -23,19 +23,22 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
+                <View
+                    style="@style/Border"
+                    android:background="@color/buildersconBlack" />
+
                 <LinearLayout
                     android:id="@+id/header_row"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/session_table_header_row_height"
                     android:background="@color/white"
-                    android:divider="@drawable/divider"
+                    android:divider="@drawable/black_frame"
                     android:orientation="horizontal"
                     android:showDividers="middle" />
 
                 <View
-                    android:id="@+id/border"
                     style="@style/Border"
-                    android:background="@color/lightGray" />
+                    android:background="@color/buildersconBlack" />
 
                 <io.builderscon.conference2017.view.customview.TouchlessTwoWayView
                     android:id="@+id/recycler_view"
