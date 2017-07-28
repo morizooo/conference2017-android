@@ -27,6 +27,34 @@
 
         </android.support.v7.widget.Toolbar>
 
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <GridLayout
+                    android:id="@+id/grid_tier1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"></GridLayout>
+
+                <GridLayout
+                    android:id="@+id/grid_tier2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"></GridLayout>
+
+                <GridLayout
+                    android:id="@+id/grid_tier3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"></GridLayout>
+            </LinearLayout>
+
+
+        </ScrollView>
+
 
     </LinearLayout>
 

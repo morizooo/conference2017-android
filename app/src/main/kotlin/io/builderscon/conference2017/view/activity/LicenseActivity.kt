@@ -12,6 +12,6 @@ class LicenseActivity : AppCompatActivity() {
         setContentView(R.layout.activity_license)
         setSupportActionBar(tool_bar)
         supportActionBar!!.setDisplayShowTitleEnabled(false)
-        toolbar_title.text = getString(R.string.title_sponsor)
+        toolbar_title.text = getString(R.string.title_lisense)
     }
 }

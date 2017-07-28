@@ -73,6 +73,7 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'us.feras.mdv:markdownview:1.1.0'
     compile 'com.davemorrissey.labs:subsampling-scale-image-view:3.6.0'
+    compile 'me.gujun.android.taggroup:library:1.4@aar'
 
     androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'

@@ -90,9 +90,14 @@ public class SessionViewModel extends BaseObservable {
         intent.putExtra("speakerName", session.getSpeaker().getNickname());
         intent.putExtra("title", session.getTitle());
         intent.putExtra("start", DateUtil.getLongFormatDate(session.getStartsOn()));
+        intent.putExtra("minutes", session.getDuration() / 60 + "分");
+        intent.putExtra("roomName", roomName);
+        // TODO Level Convert
+        intent.putExtra("materialLevel", session.getMaterialLevel().toString());
         view.getContext().startActivity(intent);
         Log.i("showSessionDetail", session.getTitle());
     }
+
 
     public String getShortStime() {
         return shortStime;
