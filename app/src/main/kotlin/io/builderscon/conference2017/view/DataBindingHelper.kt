@@ -16,6 +16,8 @@ object DataBindingHelper {
             Picasso.with(view.context)
                     .load(imageUrl)
                     .into(view)
+        } else {
+            view.setImageBitmap(null)
         }
 
     }

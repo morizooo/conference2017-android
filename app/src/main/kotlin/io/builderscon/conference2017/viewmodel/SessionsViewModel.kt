@@ -5,7 +5,6 @@ import android.databinding.BaseObservable
 import android.databinding.Bindable
 import android.text.TextUtils
 import android.view.View
-import com.annimon.stream.Stream
 import io.builderscon.client.model.Room
 import io.builderscon.client.model.Session
 import io.builderscon.client.model.Track
@@ -30,9 +29,7 @@ class SessionsViewModel : BaseObservable() {
         this.tracksMap = extractTracksMap(tracks)
         this.rooms = extractRooms(sessions)
         this.stimes = extractStimes(sessions)
-        val viewModels = Stream.of(sessions)
-            .map<SessionViewModel> { session -> SessionViewModel(session, context) }
-            .toList()
+        val viewModels = sessions.map { session -> SessionViewModel(session, context) }.toList()
 
         return adjustViewModels(viewModels)
     }
