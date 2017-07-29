@@ -22,7 +22,7 @@
     <com.gigamole.navigationtabstrip.NavigationTabStrip
         android:id="@+id/navigationTabStrip"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="36dp"
         app:nts_active_color="@color/buildersconBlue"
         app:nts_animation_duration="150"
         app:nts_color="@color/buildersconBlue"
@@ -32,7 +32,7 @@
         app:nts_type="line"
         app:nts_weight="4dp" />
 
-    <android.support.v4.view.ViewPager
+    <io.builderscon.conference2017.view.customview.NonSwipeableViewPager
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

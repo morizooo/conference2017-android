@@ -6,4 +6,5 @@
     android:clickable="true"
     android:gravity="center"
     android:textColor="@color/buildersconBlack"
-    android:textStyle="bold" />
+    android:textStyle="bold"
+    android:textSize="@dimen/session_table_header_row_title_text_size"/>

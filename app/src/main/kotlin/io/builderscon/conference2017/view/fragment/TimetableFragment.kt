@@ -30,22 +30,21 @@ class TimetableFragment : Fragment() {
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
 
         launch(UI) {
-            frame_loading.visibility = View.VISIBLE
+            frame_loading?.visibility = View.VISIBLE
             title = async(CommonPool) {
                 TimetableRepository().read().map { (schedule) ->
                     schedule.let { it.open.toMD() }
                 }
             }.await()
 
-            navigationTabStrip.apply {
+            navigationTabStrip?.apply {
                 setTitles(*title.toTypedArray())
-                setTabIndex(0, true)
                 val adapter = SessionsViewPagerAdapter(childFragmentManager)
                 viewpager.adapter = adapter
                 viewpager.offscreenPageLimit = titles.size - 1
                 setViewPager(viewpager)
             }
-            frame_loading.visibility = View.GONE
+            frame_loading?.visibility = View.GONE
         }
     }
 

@@ -6,10 +6,11 @@
 
     <!-- Session -->
     <dimen name="session_table_header_row_height">36dp</dimen>
+    <dimen name="session_table_header_row_title_text_size">10dp</dimen>
     <dimen name="session_table_cell_text_margin">2dp</dimen>
     <dimen name="session_table_border_width">4px</dimen>
     <dimen name="session_table_cell_title_text_size">10sp</dimen>
-    <dimen name="session_table_min_width">670dp</dimen>
+    <dimen name="session_table_min_width">580dp</dimen>
 
     <!-- Sponsor-->
     <dimen name="sponsor_border_size">1dp</dimen>
