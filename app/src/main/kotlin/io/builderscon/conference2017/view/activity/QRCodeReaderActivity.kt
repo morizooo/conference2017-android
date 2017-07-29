@@ -7,10 +7,10 @@ import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import android.view.ViewGroup
 import com.google.zxing.Result
 import io.builderscon.conference2017.R
+import io.builderscon.conference2017.extension.initSupportActionBar
 import io.builderscon.conference2017.extension.openWebView
 import kotlinx.android.synthetic.main.activity_qrcode_reader.*
 import me.dm7.barcodescanner.zxing.ZXingScannerView
@@ -36,8 +36,7 @@ class QRCodeReaderActivity : AppCompatActivity(), ZXingScannerView.ResultHandler
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_qrcode_reader)
-        setSupportActionBar(tool_bar)
-        supportActionBar!!.setDisplayShowTitleEnabled(false)
+        initSupportActionBar(tool_bar)
         toolbar_title.text = getString(R.string.title_qrcodereader)
 
         val frame = fragment as ViewGroup

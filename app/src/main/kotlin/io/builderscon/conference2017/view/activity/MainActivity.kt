@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity
 import android.util.TypedValue
 import android.view.View
 import io.builderscon.conference2017.R
+import io.builderscon.conference2017.extension.initSupportActionBar
 import io.builderscon.conference2017.view.fragment.InformationFragment
 import io.builderscon.conference2017.view.fragment.TimetableFragment
 import kotlinx.android.synthetic.main.activity_main.*
@@ -19,8 +20,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        setSupportActionBar(tool_bar)
-        supportActionBar!!.setDisplayShowTitleEnabled(false)
+        initSupportActionBar(tool_bar)
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
         navigation.selectedItemId = timelineItemId
 

@@ -4,6 +4,7 @@ import android.content.Intent
 import android.graphics.Point
 import android.net.Uri
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.Toolbar
 import android.widget.Toast
 
 fun AppCompatActivity.getScreenWidth(): Int {
@@ -21,5 +22,9 @@ fun AppCompatActivity.openWebView(linkUrl: String?) {
     } else {
         Toast.makeText(this, "Invalid URL", Toast.LENGTH_SHORT).show()
     }
+}
 
+fun AppCompatActivity.initSupportActionBar(toolbar: Toolbar) {
+    setSupportActionBar(toolbar)
+    supportActionBar!!.setDisplayShowTitleEnabled(false)
 }

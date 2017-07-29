@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.squareup.picasso.Picasso
 import io.builderscon.conference2017.R
+import io.builderscon.conference2017.extension.initSupportActionBar
 import kotlinx.android.synthetic.main.activity_session_detail.*
 
 class SessionDetailActivity : AppCompatActivity() {
@@ -12,8 +13,7 @@ class SessionDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_session_detail)
 
-        setSupportActionBar(tool_bar)
-        supportActionBar!!.setDisplayShowTitleEnabled(false)
+        initSupportActionBar(tool_bar)
         toolbar_title.text = getString(R.string.title_session)
 
         txt_title.text = intent.getStringExtra("title")

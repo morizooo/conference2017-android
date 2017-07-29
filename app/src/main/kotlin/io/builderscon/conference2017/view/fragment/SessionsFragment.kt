@@ -83,7 +83,7 @@ class SessionsFragment : Fragment() {
     }
 
     private fun renderSessions(adjustedSessionViewModels: List<SessionViewModel>) {
-        val stimes = viewModel.sTimes
+        val sTimes = viewModel.sTimes
         val rooms = viewModel.rooms
         val tracks = viewModel.tracksMap
 
@@ -95,7 +95,7 @@ class SessionsFragment : Fragment() {
         binding.recyclerView.minimumWidth = sessionsTableWidth
 
         val lm = SpannableGridLayoutManager(
-                TwoWayLayoutManager.Orientation.VERTICAL, rooms.size, stimes.size)
+                TwoWayLayoutManager.Orientation.VERTICAL, rooms.size, sTimes.size)
         binding.recyclerView.layoutManager = lm
 
         renderHeaderRow(rooms, tracks)

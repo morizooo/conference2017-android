@@ -1,18 +1,15 @@
 package io.builderscon.conference2017.view.activity
 
-import android.content.Intent
-import android.graphics.Point
-import android.net.Uri
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.widget.GridLayout
 import android.widget.ImageView
-import android.widget.Toast
 import com.squareup.picasso.Picasso
 import io.builderscon.client.model.Sponsor
 import io.builderscon.conference2017.R
 import io.builderscon.conference2017.extension.getScreenWidth
+import io.builderscon.conference2017.extension.initSupportActionBar
 import io.builderscon.conference2017.extension.openWebView
 import io.builderscon.conference2017.model.repository.SponsorRepository
 import kotlinx.android.synthetic.main.activity_sponsor.*
@@ -22,8 +19,7 @@ class SponsorActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sponsor)
-        setSupportActionBar(tool_bar)
-        supportActionBar!!.setDisplayShowTitleEnabled(false)
+        initSupportActionBar(tool_bar)
         toolbar_title.text = getString(R.string.title_sponsor)
 
         val sponsor = SponsorRepository().read()
@@ -32,6 +28,7 @@ class SponsorActivity : AppCompatActivity() {
         grid_tier1.columnCount = 2
         grid_tier2.columnCount = 3
         grid_tier3.columnCount = 4
+
         val tier1 = map["tier-1"]
         val tier2 = map["tier-2"]
         val tier3 = map["tier-3"]
@@ -45,12 +42,12 @@ class SponsorActivity : AppCompatActivity() {
 
     private fun drawGridLayout(gridLayout: GridLayout, sponsors: List<Sponsor>) {
         val columnSize = gridLayout.columnCount
-        val cellSize = this.getScreenWidth() /columnSize
+        val cellSize = this.getScreenWidth() / columnSize
         sponsors.forEach { sponsor ->
             val imageView = ImageView(this)
             imageView.background = ContextCompat.getDrawable(this, R.color.lightGray)
             val borderSize = resources.getDimension(R.dimen.sponsor_border_size).toInt()
-            imageView.setPadding(borderSize,borderSize,borderSize,borderSize)
+            imageView.setPadding(borderSize, borderSize, borderSize, borderSize)
             Picasso.with(this)
                     .load(sponsor.logoURL)
                     .resize(cellSize, cellSize)

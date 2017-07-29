@@ -7,7 +7,6 @@ import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.format.DateFormat;
-import android.util.Log;
 import android.view.View;
 
 import java.text.SimpleDateFormat;
@@ -98,8 +97,8 @@ public class SessionViewModel extends BaseObservable {
 
     // TODO Refactor
     private String getLevelTag(String level) {
-        if(level.equals("INTERMEDIATE")) return "中級者";
-        if(level.equals("ADVANCED")) return "上級者";
+        if (level.equals("INTERMEDIATE")) return "中級者";
+        if (level.equals("ADVANCED")) return "上級者";
         return "初心者";
 
     }
