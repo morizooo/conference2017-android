@@ -3,11 +3,12 @@ package io.builderscon.conference2017.extension
 import android.content.Intent
 import android.graphics.Point
 import android.net.Uri
+import android.support.v4.app.FragmentActivity
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.widget.Toast
 
-fun AppCompatActivity.getScreenWidth(): Int {
+fun FragmentActivity.getScreenWidth(): Int {
     val display = this.windowManager.defaultDisplay
     val size = Point()
     display.getSize(size)

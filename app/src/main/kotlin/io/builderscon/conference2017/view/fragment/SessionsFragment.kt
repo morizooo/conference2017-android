@@ -3,7 +3,6 @@ package io.builderscon.conference2017.view.fragment
 import android.content.Context
 import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding
-import android.graphics.Point
 import android.os.Bundle
 import android.os.SystemClock
 import android.support.annotation.LayoutRes
@@ -18,9 +17,15 @@ import io.builderscon.client.model.Room
 import io.builderscon.conference2017.R
 import io.builderscon.conference2017.databinding.FragmentSessionsBinding
 import io.builderscon.conference2017.databinding.ViewSessionCellBinding
+import io.builderscon.conference2017.extension.getScreenWidth
 import io.builderscon.conference2017.view.customview.TouchlessTwoWayView
 import io.builderscon.conference2017.viewmodel.SessionViewModel
 import io.builderscon.conference2017.viewmodel.SessionsViewModel
+import kotlinx.android.synthetic.main.fragment_sessions.*
+import kotlinx.coroutines.experimental.CommonPool
+import kotlinx.coroutines.experimental.android.UI
+import kotlinx.coroutines.experimental.async
+import kotlinx.coroutines.experimental.launch
 import org.lucasr.twowayview.TwoWayLayoutManager
 import org.lucasr.twowayview.widget.DividerItemDecoration
 import org.lucasr.twowayview.widget.SpannableGridLayoutManager
@@ -48,15 +53,15 @@ class SessionsFragment : Fragment() {
         showSessions()
     }
 
-    private fun getScreenWidth(): Int {
-        val display = activity.windowManager.defaultDisplay
-        val size = Point()
-        display.getSize(size)
-        return size.x
-    }
-
     private fun showSessions() {
-        this.renderSessions(viewModel.getSessions(activity, arguments.getInt("tabIndex")))
+        launch(UI) {
+            frame_loading.visibility = View.VISIBLE
+            val sessions = async(CommonPool) {
+                viewModel.getSessions(activity, arguments.getInt("tabIndex"))
+            }.await()
+            renderSessions(sessions)
+            frame_loading.visibility = View.GONE
+        }
     }
 
     private fun initView() {
@@ -87,7 +92,7 @@ class SessionsFragment : Fragment() {
         val rooms = viewModel.rooms
         val tracks = viewModel.tracksMap
 
-        var sessionsTableWidth = getScreenWidth()
+        var sessionsTableWidth = activity.getScreenWidth()
         val minWidth = resources.getDimension(R.dimen.session_table_min_width).toInt()
         if (rooms.size > 2 && sessionsTableWidth < minWidth) {
             sessionsTableWidth = minWidth

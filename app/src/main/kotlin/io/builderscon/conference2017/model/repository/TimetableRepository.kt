@@ -18,7 +18,6 @@ class TimetableRepository {
         val tracks = conference?.tracks ?: emptyList()
 
         return conference?.schedules?.map { schedule ->
-
             val scheduledSessions: List<Session> = sessions?.filter {
                 it.startsOn.getFormatDate() == schedule.open.getFormatDate()
             } ?: emptyList()

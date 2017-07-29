@@ -33,8 +33,6 @@ class SponsorActivity : AppCompatActivity() {
         val tier2 = map["tier-2"]
         val tier3 = map["tier-3"]
 
-        getScreenWidth()
-
         tier1?.let { drawGridLayout(grid_tier1, it) }
         tier2?.let { drawGridLayout(grid_tier2, it) }
         tier3?.let { drawGridLayout(grid_tier3, it) }
@@ -42,7 +40,7 @@ class SponsorActivity : AppCompatActivity() {
 
     private fun drawGridLayout(gridLayout: GridLayout, sponsors: List<Sponsor>) {
         val columnSize = gridLayout.columnCount
-        val cellSize = this.getScreenWidth() / columnSize
+        val cellSize = getScreenWidth() / columnSize
         sponsors.forEach { sponsor ->
             val imageView = ImageView(this)
             imageView.background = ContextCompat.getDrawable(this, R.color.lightGray)

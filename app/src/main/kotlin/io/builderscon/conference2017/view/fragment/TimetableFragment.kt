@@ -10,6 +10,10 @@ import com.gigamole.navigationtabstrip.NavigationTabStrip
 import io.builderscon.conference2017.R
 import io.builderscon.conference2017.model.repository.TimetableRepository
 import kotlinx.android.synthetic.main.fragment_timetable.*
+import kotlinx.coroutines.experimental.CommonPool
+import kotlinx.coroutines.experimental.android.UI
+import kotlinx.coroutines.experimental.async
+import kotlinx.coroutines.experimental.launch
 import java.text.SimpleDateFormat
 
 class TimetableFragment : Fragment() {
@@ -23,22 +27,27 @@ class TimetableFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
-        val titles = TimetableRepository().read().map { (schedule) ->
-            schedule.let { fmt.format(it.open) }
-        }
 
-        loadSession(0)
-
-        navigationTabStrip.apply {
-            setTitles(*titles.toTypedArray())
-            setTabIndex(0, true)
-            onTabStripSelectedIndexListener = (object : NavigationTabStrip.OnTabStripSelectedIndexListener {
-                override fun onStartTabSelected(title: String?, index: Int) {
-                    loadSession(index)
+        launch(UI) {
+            val titles = async(CommonPool) {
+                val titles = TimetableRepository().read().map { (schedule) ->
+                    schedule.let { fmt.format(it.open) }
                 }
+                loadSession(0)
+                titles
+            }.await()
 
-                override fun onEndTabSelected(title: String?, index: Int) {}
-            })
+            navigationTabStrip.apply {
+                setTitles(*titles.toTypedArray())
+                setTabIndex(0, true)
+                onTabStripSelectedIndexListener = (object : NavigationTabStrip.OnTabStripSelectedIndexListener {
+                    override fun onStartTabSelected(title: String?, index: Int) {
+                        loadSession(index)
+                    }
+
+                    override fun onEndTabSelected(title: String?, index: Int) {}
+                })
+            }
         }
     }
 
