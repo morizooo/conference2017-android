@@ -8,7 +8,7 @@ import android.view.View
 import io.builderscon.client.model.Room
 import io.builderscon.client.model.Session
 import io.builderscon.client.model.Track
-import io.builderscon.conference2017.infra.date.getLongFormatDate
+import io.builderscon.conference2017.extension.getLongFormatDate
 import io.builderscon.conference2017.model.repository.TimetableRepository
 import java.util.*
 

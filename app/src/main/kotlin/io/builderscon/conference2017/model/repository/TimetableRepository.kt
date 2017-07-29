@@ -1,11 +1,10 @@
 package io.builderscon.conference2017.model.repository
 
 import io.builderscon.client.model.Session
-import io.builderscon.conference2017.infra.date.getFormatDate
+import io.builderscon.conference2017.extension.getFormatDate
 import io.builderscon.conference2017.infra.file.FileConferenceDAO
 import io.builderscon.conference2017.infra.file.FileSessionApiDAO
 import io.builderscon.conference2017.model.Timetable
-import java.text.SimpleDateFormat
 
 class TimetableRepository {
 

@@ -1,4 +1,4 @@
-package io.builderscon.conference2017.infra.date
+package io.builderscon.conference2017.extension
 
 import android.text.format.DateFormat
 import java.text.SimpleDateFormat

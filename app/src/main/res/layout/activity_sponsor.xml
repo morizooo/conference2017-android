@@ -29,7 +29,8 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@color/white">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -39,17 +40,17 @@
                 <GridLayout
                     android:id="@+id/grid_tier1"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"></GridLayout>
+                    android:layout_height="match_parent" />
 
                 <GridLayout
                     android:id="@+id/grid_tier2"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"></GridLayout>
+                    android:layout_height="match_parent" />
 
                 <GridLayout
                     android:id="@+id/grid_tier3"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"></GridLayout>
+                    android:layout_height="match_parent" />
             </LinearLayout>
 
 

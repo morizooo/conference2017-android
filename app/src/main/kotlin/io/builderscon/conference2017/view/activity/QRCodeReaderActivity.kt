@@ -1,18 +1,16 @@
 package io.builderscon.conference2017.view.activity
 
 import android.Manifest
-import android.content.Intent
 import android.content.pm.PackageManager
-import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.view.ViewGroup
-import android.widget.Toast
 import com.google.zxing.Result
 import io.builderscon.conference2017.R
+import io.builderscon.conference2017.extension.openWebView
 import kotlinx.android.synthetic.main.activity_qrcode_reader.*
 import me.dm7.barcodescanner.zxing.ZXingScannerView
 
@@ -26,14 +24,7 @@ class QRCodeReaderActivity : AppCompatActivity(), ZXingScannerView.ResultHandler
                 .setTitle("Result")
                 .setMessage(text ?: "")
                 .setPositiveButton("Open", { _, _ ->
-                    if (text?.startsWith("http") ?: false) {
-                        val url = Uri.parse(result?.text)
-                        val intent = Intent(Intent.ACTION_VIEW, url)
-                        startActivity(intent)
-                    } else {
-                        Toast.makeText(this, "Invalid URL", Toast.LENGTH_SHORT).show()
-                    }
-
+                    this.openWebView(text)
                 })
                 .setNegativeButton("Cancel", { _, _ ->
                     mScannerView.resumeCameraPreview(this)

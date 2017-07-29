@@ -8,8 +8,8 @@
 //import android.view.View
 //import io.builderscon.client.model.Session
 //import io.builderscon.conference2017.R
-//import io.builderscon.conference2017.infra.date.getHourMinute
-//import io.builderscon.conference2017.infra.date.getLongFormatDate
+//import io.builderscon.conference2017.extension.getHourMinute
+//import io.builderscon.conference2017.extension.getLongFormatDate
 //import io.builderscon.conference2017.view.activity.SessionDetailActivity
 //import java.util.*
 //
