@@ -7,6 +7,7 @@ import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.ViewGroup
 import com.google.zxing.Result
 import io.builderscon.conference2017.R
@@ -50,13 +51,13 @@ class QRCodeReaderActivity : AppCompatActivity(), ZXingScannerView.ResultHandler
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        print(grantResults.toString())
-        if (grantResults.isNotEmpty() || grantResults.first() != PackageManager.PERMISSION_GRANTED) {
-            this.finish()
-        } else {
+        if (grantResults.isNotEmpty() && grantResults.first() == PackageManager.PERMISSION_GRANTED) {
             mScannerView.setResultHandler(this)
             mScannerView.startCamera()
+            return
         }
+
+        this.finish()
     }
 
     override fun onResume() {
