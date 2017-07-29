@@ -1,25 +1,20 @@
 package io.builderscon.conference2017.extension
 
-import android.text.format.DateFormat
-import java.text.SimpleDateFormat
+import khronos.toString
 import java.util.*
 
-private val FORMAT_KKMM = "kk:mm"
-private val FORMAT_YYYYMMDD = "yyyyMMdd"
-private val FORMAT_YYYYMMDDKKMM = "yyyyMMMdkkmm"
-
-// TODO use khronos
 fun Date.getHourMinute(): String {
-    val pattern = DateFormat.getBestDateTimePattern(Locale.getDefault(), FORMAT_KKMM)
-    return SimpleDateFormat(pattern, Locale.getDefault()).format(this)
+    return this.toString("kk:mm")
 }
 
 fun Date.getFormatDate(): String {
-    val pattern = DateFormat.getBestDateTimePattern(Locale.getDefault(), FORMAT_YYYYMMDD)
-    return SimpleDateFormat(pattern, Locale.getDefault()).format(this)
+    return this.toString("yyyyMMdd")
 }
 
 fun Date.getLongFormatDate(): String {
-    val pattern = DateFormat.getBestDateTimePattern(Locale.getDefault(), FORMAT_YYYYMMDDKKMM)
-    return SimpleDateFormat(pattern, Locale.getDefault()).format(this)
+    return this.toString("yyyyMMMdkkmm")
+}
+
+fun Date.toMD(): String {
+    return this.toString("M/d")
 }
