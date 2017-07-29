@@ -88,6 +88,7 @@ class SessionsFragment : Fragment() {
         val sTimes = viewModel.sTimes
         val rooms = viewModel.rooms
         val tracks = viewModel.tracksMap
+        var colSpan = rooms.size
 
         var sessionsTableWidth = activity.getScreenWidth()
         val minWidth = resources.getDimension(R.dimen.session_table_min_width).toInt()
@@ -96,8 +97,10 @@ class SessionsFragment : Fragment() {
         }
         binding.recyclerView.minimumWidth = sessionsTableWidth
 
+        if (colSpan == 1) colSpan += 1
+
         val lm = SpannableGridLayoutManager(
-                TwoWayLayoutManager.Orientation.VERTICAL, rooms.size, sTimes.size)
+                TwoWayLayoutManager.Orientation.VERTICAL, colSpan, sTimes.size)
         binding.recyclerView.layoutManager = lm
 
         renderHeaderRow(rooms, tracks)

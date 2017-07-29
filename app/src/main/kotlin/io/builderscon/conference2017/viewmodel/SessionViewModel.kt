@@ -8,6 +8,7 @@ import io.builderscon.client.model.Session
 import io.builderscon.conference2017.R
 import io.builderscon.conference2017.extension.getHourMinute
 import io.builderscon.conference2017.extension.getLongFormatDate
+import io.builderscon.conference2017.extension.needsAdjustColSpan
 import io.builderscon.conference2017.view.activity.SessionDetailActivity
 import java.util.*
 
@@ -41,6 +42,7 @@ class SessionViewModel(private val session: Session?) : BaseObservable() {
             this.avatarURL = it.speaker.avatarURL
             this.roomName = it.room.name
             this.minutes = "(" + it.duration / 60 + " 分)"
+            if (it.startsOn.needsAdjustColSpan()) this.colSpan = 2
 
             decideRowSpan(it)
         }

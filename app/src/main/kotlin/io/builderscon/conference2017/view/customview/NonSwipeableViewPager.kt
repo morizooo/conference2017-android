@@ -7,12 +7,10 @@ import android.view.MotionEvent
 
 class NonSwipeableViewPager(context: Context?, attrs: AttributeSet?) : ViewPager(context, attrs) {
     override fun onInterceptTouchEvent(arg0: MotionEvent): Boolean {
-        // Never allow swiping to switch between pages
         return false
     }
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
-        // Never allow swiping to switch between pages
         return false
     }
 }

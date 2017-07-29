@@ -1,13 +1,14 @@
 package io.builderscon.conference2017.viewmodel
 
-import android.content.Context
 import android.databinding.BaseObservable
 import io.builderscon.client.model.Room
 import io.builderscon.client.model.Session
 import io.builderscon.client.model.Track
 import io.builderscon.conference2017.extension.getLongFormatDate
+import io.builderscon.conference2017.extension.ignoreSameTimes
+import io.builderscon.conference2017.extension.ignoreTmpTimes
+import io.builderscon.conference2017.extension.needAddEmptyTime
 import io.builderscon.conference2017.model.repository.TimetableRepository
-import khronos.toDate
 import java.util.*
 
 class SessionsViewModel : BaseObservable() {
@@ -40,14 +41,8 @@ class SessionsViewModel : BaseObservable() {
 
         val adjustedViewModels = ArrayList<SessionViewModel>()
 
-        val closingDate = "2017-08-05 16:50".toDate("yyyy-MM-dd hh:mm")
-        val ignoreSameTimes = listOf("2017-08-04 11:30".toDate("yyyy-MM-dd hh:mm")
-                , "2017-08-05 15:50".toDate("yyyy-MM-dd hh:mm"))
-        val ignoreTmpTimes = listOf("2017-08-04 11:00".toDate("yyyy-MM-dd hh:mm")
-                , "2017-08-05 15:20".toDate("yyyy-MM-dd hh:mm"))
-
         sTimes.forEach { sTime ->
-            if (sTime == closingDate) {
+            if (sTime.needAddEmptyTime()) {
                 val empty = SessionViewModel.createEmpty(1)
                 adjustedViewModels.add(empty)
             }
@@ -62,7 +57,7 @@ class SessionsViewModel : BaseObservable() {
                         maxRowSpan = vm.rowSpan
                     }
                 } ?: run {
-                    if (!ignoreSameTimes.contains(sTime)) {
+                    if (!sTime.ignoreSameTimes()) {
                         sameTimeViewModels.add(SessionViewModel.createEmpty(1))
                     }
                 }
@@ -71,7 +66,7 @@ class SessionsViewModel : BaseObservable() {
             val copiedTmpViewModels = ArrayList(sameTimeViewModels)
             sameTimeViewModels.forEach {
                 val rowSpan = it.rowSpan
-                if (rowSpan < maxRowSpan && !ignoreTmpTimes.contains(sTime)) {
+                if (rowSpan < maxRowSpan && !sTime.ignoreTmpTimes()) {
                     // Fill for empty cell
                     copiedTmpViewModels.add(SessionViewModel.createEmpty(maxRowSpan - rowSpan))
                 }
