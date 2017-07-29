@@ -18,7 +18,7 @@ import io.builderscon.client.model.Session;
 import io.builderscon.conference2017.R;
 import io.builderscon.conference2017.view.activity.SessionDetailActivity;
 
-
+// TODO convert to kotlin
 public class SessionViewModel extends BaseObservable {
 
     private Session session;
@@ -51,7 +51,7 @@ public class SessionViewModel extends BaseObservable {
 
         this.avatarURL = session.getSpeaker().getAvatarURL();
         this.roomName = session.getRoom().getName();
-        this.minutes = context.getString(R.string.session_minutes, session.getDuration() / 60);
+        this.minutes = "(" + session.getDuration() / 60 + " 分)";
 
         decideRowSpan(session);
     }
@@ -92,12 +92,17 @@ public class SessionViewModel extends BaseObservable {
         intent.putExtra("start", DateUtil.getLongFormatDate(session.getStartsOn()));
         intent.putExtra("minutes", session.getDuration() / 60 + "分");
         intent.putExtra("roomName", roomName);
-        // TODO Level Convert
-        intent.putExtra("materialLevel", session.getMaterialLevel().toString());
+        intent.putExtra("materialLevel", getLevelTag(session.getMaterialLevel().toString()));
         view.getContext().startActivity(intent);
-        Log.i("showSessionDetail", session.getTitle());
     }
 
+    // TODO Refactor
+    private String getLevelTag(String level) {
+        if(level.equals("INTERMEDIATE")) return "中級者";
+        if(level.equals("ADVANCED")) return "上級者";
+        return "初心者";
+
+    }
 
     public String getShortStime() {
         return shortStime;
@@ -137,10 +142,6 @@ public class SessionViewModel extends BaseObservable {
 
     public String getAvatarURL() {
         return avatarURL;
-    }
-
-    public void setAvatarURL(String avatarURL) {
-        this.avatarURL = avatarURL;
     }
 
 }
