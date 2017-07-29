@@ -2,7 +2,6 @@ package io.builderscon.conference2017.viewmodel
 
 import android.content.Context
 import android.databinding.BaseObservable
-import android.text.TextUtils
 import io.builderscon.client.model.Room
 import io.builderscon.client.model.Session
 import io.builderscon.client.model.Track
@@ -26,7 +25,7 @@ class SessionsViewModel : BaseObservable() {
         this.tracksMap = extractTracksMap(tracks)
         this.rooms = extractRooms(sessions)
         this.sTimes = extractSTimes(sessions)
-        val viewModels = sessions.map { session -> SessionViewModel(session, context) }.toList()
+        val viewModels = sessions.map { session -> SessionViewModel(session) }.toList()
 
         return adjustViewModels(viewModels)
     }
@@ -35,10 +34,8 @@ class SessionsViewModel : BaseObservable() {
         val sessionMap = LinkedHashMap<String, SessionViewModel>()
         for (viewModel in sessionViewModels) {
             var roomName = viewModel.roomName
-            if (TextUtils.isEmpty(roomName)) {
-                roomName = rooms[0].name
-            }
-            sessionMap.put(generateStimeRoomKey(viewModel.stime, roomName), viewModel)
+            val mapKey = viewModel.getStime()?.let { generateSTimeRoomKey(it, roomName) }
+            mapKey?.let { sessionMap.put(it, viewModel) }
         }
 
         val adjustedViewModels = ArrayList<SessionViewModel>()
@@ -58,7 +55,7 @@ class SessionsViewModel : BaseObservable() {
             var maxRowSpan = 1
             (0 until rooms.size).forEach { index ->
                 val (_, _, name) = rooms[index]
-                val viewModel = sessionMap[generateStimeRoomKey(sTime, name)]
+                val viewModel = sessionMap[generateSTimeRoomKey(sTime, name)]
                 viewModel?.let { vm ->
                     sameTimeViewModels.add(viewModel)
                     if (vm.rowSpan > maxRowSpan) {
@@ -85,7 +82,7 @@ class SessionsViewModel : BaseObservable() {
         return adjustedViewModels
     }
 
-    private fun generateStimeRoomKey(stime: Date, roomName: String): String {
+    private fun generateSTimeRoomKey(stime: Date, roomName: String): String {
         return stime.getLongFormatDate() + "_" + roomName
     }
 
