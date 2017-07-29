@@ -6,7 +6,7 @@ import io.builderscon.client.model.Session
 import io.builderscon.conference2017.infra.SessionDAO
 
 
-class FileSessionApiDAO : FileReader(), SessionDAO {
+class FileSessionDAO : FileReader(), SessionDAO {
     override fun findAll(): List<Session>? {
         val type = Types.newParameterizedType(List::class.java, Session::class.java)
         val adapter: JsonAdapter<List<Session>> = moshi.adapter(type)

@@ -21,7 +21,6 @@ import io.builderscon.conference2017.extension.getScreenWidth
 import io.builderscon.conference2017.view.customview.TouchlessTwoWayView
 import io.builderscon.conference2017.viewmodel.SessionViewModel
 import io.builderscon.conference2017.viewmodel.SessionsViewModel
-import kotlinx.android.synthetic.main.fragment_sessions.*
 import kotlinx.coroutines.experimental.CommonPool
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.async
@@ -55,12 +54,10 @@ class SessionsFragment : Fragment() {
 
     private fun showSessions() {
         launch(UI) {
-            frame_loading.visibility = View.VISIBLE
             val sessions = async(CommonPool) {
                 viewModel.getSessions(activity, arguments.getInt("tabIndex"))
             }.await()
             renderSessions(sessions)
-            frame_loading.visibility = View.GONE
         }
     }
 
