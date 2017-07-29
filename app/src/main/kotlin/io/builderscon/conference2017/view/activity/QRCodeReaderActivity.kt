@@ -1,8 +1,12 @@
 package io.builderscon.conference2017.view.activity
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
+import android.support.v4.app.ActivityCompat
+import android.support.v4.content.ContextCompat
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.view.ViewGroup
@@ -14,7 +18,7 @@ import me.dm7.barcodescanner.zxing.ZXingScannerView
 
 
 class QRCodeReaderActivity : AppCompatActivity(), ZXingScannerView.ResultHandler {
-    private var mScannerView: ZXingScannerView? = null
+    lateinit var mScannerView: ZXingScannerView
 
     override fun handleResult(result: Result?) {
         val text: String? = result?.text
@@ -32,7 +36,7 @@ class QRCodeReaderActivity : AppCompatActivity(), ZXingScannerView.ResultHandler
 
                 })
                 .setNegativeButton("Cancel", { _, _ ->
-                    mScannerView?.resumeCameraPreview(this)
+                    mScannerView.resumeCameraPreview(this)
                 })
                 .show()
     }
@@ -47,16 +51,31 @@ class QRCodeReaderActivity : AppCompatActivity(), ZXingScannerView.ResultHandler
         val frame = fragment as ViewGroup
         mScannerView = ZXingScannerView(this)
         frame.addView(mScannerView)
+
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            return ActivityCompat.requestPermissions(this,
+                    listOf(Manifest.permission.CAMERA).toTypedArray(), 1)
+        }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        print(grantResults.toString())
+        if (grantResults.isNotEmpty() || grantResults.first() != PackageManager.PERMISSION_GRANTED) {
+            this.finish()
+        } else {
+            mScannerView.setResultHandler(this)
+            mScannerView.startCamera()
+        }
     }
 
     override fun onResume() {
         super.onResume()
-        mScannerView?.setResultHandler(this)
-        mScannerView?.startCamera()
+        mScannerView.setResultHandler(this)
+        mScannerView.startCamera()
     }
 
     public override fun onPause() {
         super.onPause()
-        mScannerView?.stopCamera()
+        mScannerView.stopCamera()
     }
 }

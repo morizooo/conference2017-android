@@ -1,13 +1,13 @@
 package io.builderscon.conference2017.model.repository
 
 import io.builderscon.client.model.Session
+import io.builderscon.conference2017.infra.date.getFormatDate
 import io.builderscon.conference2017.infra.file.FileConferenceDAO
 import io.builderscon.conference2017.infra.file.FileSessionApiDAO
 import io.builderscon.conference2017.model.Timetable
 import java.text.SimpleDateFormat
 
 class TimetableRepository {
-    val fmt = SimpleDateFormat("yyyyMMdd")
 
     fun read(): List<Timetable> {
         val conferenceRepository = FileConferenceDAO()
@@ -21,7 +21,7 @@ class TimetableRepository {
         return conference?.schedules?.map { schedule ->
 
             val scheduledSessions: List<Session> = sessions?.filter {
-                fmt.format(it.startsOn).equals(fmt.format(schedule.open))
+                it.startsOn.getFormatDate() == schedule.open.getFormatDate()
             } ?: emptyList()
 
             Timetable(schedule, tracks, scheduledSessions)
