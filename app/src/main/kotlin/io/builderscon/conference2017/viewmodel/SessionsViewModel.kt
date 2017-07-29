@@ -18,7 +18,7 @@ class SessionsViewModel : BaseObservable() {
     var sTimes: List<Date> = emptyList()
     var tracksMap: Map<String, String> = emptyMap()
 
-    suspend fun getSessions(context: Context, position: Int): List<SessionViewModel> {
+    suspend fun getSessions(position: Int): List<SessionViewModel> {
         val timetables = timetableRepository.read()
         val sessions = timetables[position].sessions
         val tracks = timetables[position].tracks

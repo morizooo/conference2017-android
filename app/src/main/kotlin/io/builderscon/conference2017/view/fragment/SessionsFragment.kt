@@ -55,7 +55,7 @@ class SessionsFragment : Fragment() {
     private fun showSessions() {
         launch(UI) {
             val sessions = async(CommonPool) {
-                viewModel.getSessions(activity, arguments.getInt("tabIndex"))
+                viewModel.getSessions(arguments.getInt("tabIndex"))
             }.await()
             renderSessions(sessions)
         }

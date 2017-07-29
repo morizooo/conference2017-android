@@ -54,3 +54,5 @@
 -keepclassmembers public class io.builderscon.client.model.** {
     public synthetic <methods>;
 }
+
+-dontwarn kotlin.reflect.jvm.internal.**
