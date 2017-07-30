@@ -18,6 +18,7 @@ import io.builderscon.conference2017.R
 import io.builderscon.conference2017.databinding.FragmentSessionsBinding
 import io.builderscon.conference2017.databinding.ViewSessionCellBinding
 import io.builderscon.conference2017.extension.getScreenWidth
+import io.builderscon.conference2017.extension.needsAdjustColSpan
 import io.builderscon.conference2017.view.customview.TouchlessTwoWayView
 import io.builderscon.conference2017.viewmodel.SessionViewModel
 import io.builderscon.conference2017.viewmodel.SessionsViewModel
@@ -32,10 +33,9 @@ import java.util.*
 
 
 class SessionsFragment : Fragment() {
+
     internal var viewModel = SessionsViewModel()
-
     lateinit var binding: FragmentSessionsBinding
-
     lateinit var adapter: SessionsFragment.SessionsAdapter
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -47,8 +47,8 @@ class SessionsFragment : Fragment() {
         return binding.getRoot()
     }
 
-    override fun onResume() {
-        super.onResume()
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
         showSessions()
     }
 
@@ -62,17 +62,14 @@ class SessionsFragment : Fragment() {
     }
 
     private fun initView() {
-
         binding.recyclerView.setHasFixedSize(true)
 
         val divider = ResourcesCompat.getDrawable(resources, R.drawable.divider, null)
         binding.recyclerView.addItemDecoration(DividerItemDecoration(divider))
-
         adapter = SessionsAdapter(activity)
         binding.recyclerView.adapter = adapter
 
         val clickCanceller = ClickGestureCanceller(activity, binding.recyclerView)
-
         binding.root.setOnTouchListener { _, event ->
             clickCanceller.sendCancelIfScrolling(event)
 
@@ -81,7 +78,6 @@ class SessionsFragment : Fragment() {
             binding.recyclerView.forceToDispatchTouchEvent(e)
             false
         }
-
     }
 
     private fun renderSessions(adjustedSessionViewModels: List<SessionViewModel>) {
@@ -95,10 +91,10 @@ class SessionsFragment : Fragment() {
         if (rooms.size > 2 && sessionsTableWidth < minWidth) {
             sessionsTableWidth = minWidth
         }
+
         binding.recyclerView.minimumWidth = sessionsTableWidth
 
-        if (colSpan == 1) colSpan += 1
-
+        if (sTimes.first().needsAdjustColSpan()) colSpan = 2
         val lm = SpannableGridLayoutManager(
                 TwoWayLayoutManager.Orientation.VERTICAL, colSpan, sTimes.size)
         binding.recyclerView.layoutManager = lm
@@ -123,7 +119,6 @@ class SessionsFragment : Fragment() {
     private class ClickGestureCanceller internal constructor(context: Context, targetView: TouchlessTwoWayView) {
 
         private val gestureDetector: GestureDetector
-
         init {
             gestureDetector = GestureDetector(context, object : GestureDetector.OnGestureListener {
                 private var ignoreMotionEventOnScroll = false
@@ -134,8 +129,6 @@ class SessionsFragment : Fragment() {
                 }
 
                 override fun onScroll(motionEvent: MotionEvent, motionEvent1: MotionEvent, v: Float, v1: Float): Boolean {
-
-                    // Send cancel event for item clicked when horizontal scrolling.
                     if (ignoreMotionEventOnScroll) {
                         val now = SystemClock.uptimeMillis()
                         val cancelEvent = MotionEvent.obtain(now, now,
@@ -147,12 +140,9 @@ class SessionsFragment : Fragment() {
                     return false
                 }
 
-                override fun onShowPress(motionEvent: MotionEvent) {
-                    // Do nothing
-                }
+                override fun onShowPress(motionEvent: MotionEvent) {}
 
                 override fun onSingleTapUp(motionEvent: MotionEvent): Boolean {
-                    // Do nothing
                     return false
                 }
 
@@ -167,6 +157,7 @@ class SessionsFragment : Fragment() {
         internal fun sendCancelIfScrolling(event: MotionEvent) {
             gestureDetector.onTouchEvent(event)
         }
+
     }
 
     inner class SessionsAdapter internal constructor(context: Context) : ArrayRecyclerAdapter<SessionViewModel, BindingHolder<ViewSessionCellBinding>>(context) {

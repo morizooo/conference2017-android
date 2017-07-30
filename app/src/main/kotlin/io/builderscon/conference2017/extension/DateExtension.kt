@@ -40,5 +40,5 @@ fun Date.ignoreTmpTimes(): Boolean {
 }
 
 fun Date.needsAdjustColSpan(): Boolean {
-    return this.toMD() == "8/3"
+    return this.getFormatDate() == "20170803"
 }

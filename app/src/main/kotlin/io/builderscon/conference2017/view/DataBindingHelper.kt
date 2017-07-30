@@ -2,9 +2,11 @@ package io.builderscon.conference2017.view
 
 import android.databinding.BindingAdapter
 import android.support.annotation.DrawableRes
+import android.support.v4.content.ContextCompat
 import android.view.View
 import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
+import io.builderscon.conference2017.R
 import org.lucasr.twowayview.widget.SpannableGridLayoutManager
 
 object DataBindingHelper {
@@ -16,8 +18,10 @@ object DataBindingHelper {
             Picasso.with(view.context)
                     .load(imageUrl)
                     .into(view)
+            view.borderWidth = 1
         } else {
-            view.setImageBitmap(null)
+            view.setImageDrawable(ContextCompat.getDrawable(view.context, R.color.lightGray))
+            view.borderWidth = 0
         }
 
     }
