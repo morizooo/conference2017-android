@@ -13,7 +13,7 @@ fun Date.getFormatDate(): String {
 }
 
 fun Date.getLongFormatDate(): String {
-    return this.toString("yyyyMMMdkkmm")
+    return this.toString("yyyy/MM/dd/ kk:mm")
 }
 
 fun Date.toMD(): String {
