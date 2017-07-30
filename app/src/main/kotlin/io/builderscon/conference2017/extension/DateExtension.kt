@@ -3,7 +3,7 @@ package io.builderscon.conference2017.extension
 import java.text.SimpleDateFormat
 import java.util.*
 
-private fun  getJstFormat(format:String) : SimpleDateFormat= SimpleDateFormat(format).apply {
+private fun getJstFormat(format: String): SimpleDateFormat = SimpleDateFormat(format).apply {
     timeZone = TimeZone.getTimeZone("Asia/Tokyo")
 }
 

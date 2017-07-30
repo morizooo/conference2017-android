@@ -119,6 +119,7 @@ class SessionsFragment : Fragment() {
     private class ClickGestureCanceller internal constructor(context: Context, targetView: TouchlessTwoWayView) {
 
         private val gestureDetector: GestureDetector
+
         init {
             gestureDetector = GestureDetector(context, object : GestureDetector.OnGestureListener {
                 private var ignoreMotionEventOnScroll = false
