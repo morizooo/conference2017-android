@@ -182,7 +182,6 @@ class SessionsFragment : Fragment() {
         }
     }
 
-
 }
 
 class BindingHolder<out T : ViewDataBinding>(context: Context, parent: ViewGroup, @LayoutRes layoutResId: Int) : RecyclerView.ViewHolder(LayoutInflater.from(context).inflate(layoutResId, parent, false)) {
@@ -192,7 +191,7 @@ class BindingHolder<out T : ViewDataBinding>(context: Context, parent: ViewGroup
 
 abstract class ArrayRecyclerAdapter<T, VH : RecyclerView.ViewHolder> private constructor(val context: Context, private val list: MutableList<T>) : RecyclerView.Adapter<VH>() {
 
-    constructor(context: Context) : this(context, ArrayList<T>()) {}
+    constructor(context: Context) : this(context, ArrayList<T>())
 
     @UiThread
     fun reset(items: Collection<T>) {

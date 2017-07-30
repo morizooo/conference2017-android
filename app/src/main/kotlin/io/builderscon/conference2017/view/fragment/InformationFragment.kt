@@ -9,7 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import io.builderscon.conference2017.R
 import io.builderscon.conference2017.view.activity.FloorMapActivity
 import io.builderscon.conference2017.view.activity.LicenseActivity
@@ -31,7 +30,7 @@ class InformationFragment : Fragment() {
         val menu: MutableList<String> = mutableListOf("Sponsor", "FloorMap", "QRCodeReader", "License")
         list_view.adapter =
                 ArrayAdapter<String>(activity, android.R.layout.simple_list_item_1, menu)
-        list_view.onItemClickListener = AdapterView.OnItemClickListener { parent, _, pos, _ ->
+        list_view.onItemClickListener = AdapterView.OnItemClickListener { _, _, pos, _ ->
             when (pos) {
                 0 -> {
                     val intent = Intent(context, SponsorActivity::class.java)
@@ -48,9 +47,6 @@ class InformationFragment : Fragment() {
                 3 -> {
                     val intent = Intent(context, LicenseActivity::class.java)
                     context.startActivity(intent)
-                }
-                else -> {
-                    Toast.makeText(activity, parent.getItemAtPosition(pos) as String, Toast.LENGTH_SHORT).show()
                 }
             }
         }

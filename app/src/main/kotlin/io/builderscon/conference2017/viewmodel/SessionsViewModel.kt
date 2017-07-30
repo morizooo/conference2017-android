@@ -34,7 +34,7 @@ class SessionsViewModel : BaseObservable() {
     private fun adjustViewModels(sessionViewModels: List<SessionViewModel>): List<SessionViewModel> {
         val sessionMap = LinkedHashMap<String, SessionViewModel>()
         for (viewModel in sessionViewModels) {
-            var roomName = viewModel.roomName
+            val roomName = viewModel.roomName
             val mapKey = viewModel.getStime()?.let { generateSTimeRoomKey(it, roomName) }
             mapKey?.let { sessionMap.put(it, viewModel) }
         }
@@ -77,8 +77,8 @@ class SessionsViewModel : BaseObservable() {
         return adjustedViewModels
     }
 
-    private fun generateSTimeRoomKey(stime: Date, roomName: String): String {
-        return stime.getLongFormatDate() + "_" + roomName
+    private fun generateSTimeRoomKey(sTime: Date, roomName: String): String {
+        return sTime.getLongFormatDate() + "_" + roomName
     }
 
     private fun extractTracksMap(tracks: List<Track>): Map<String, String> {

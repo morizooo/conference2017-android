@@ -33,7 +33,7 @@ class TimetableFragment : Fragment() {
             frame_loading?.visibility = View.VISIBLE
             title = async(CommonPool) {
                 TimetableRepository().read().map { (schedule) ->
-                    schedule.let { it.open.toMD() }
+                    schedule.open.toMD()
                 }
             }.await()
 

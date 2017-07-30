@@ -80,3 +80,9 @@ dependencies {
     })
     testImplementation 'junit:junit:4.12'
 }
+
+kotlin {
+    experimental {
+        coroutines "enable"
+    }
+}
