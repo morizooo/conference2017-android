@@ -31,7 +31,12 @@ class MainActivity : AppCompatActivity() {
         when (item.itemId) {
             timelineItemId -> {
                 toolbar_title.text = getString(R.string.title_timetable)
-                this.supportFragmentManager.beginTransaction().replace(R.id.fragment, TimetableFragment(), "SessionFragment").commit()
+                val fragmentManager = supportFragmentManager
+                var fragment = fragmentManager.findFragmentByTag("TimetableFragment")
+                if (fragment == null) {
+                    fragment = TimetableFragment()
+                }
+                this.supportFragmentManager.beginTransaction().replace(R.id.fragment, fragment, "TimetableFragment").commit()
                 return@OnNavigationItemSelectedListener true
             }
             informationItemId -> {

@@ -79,7 +79,7 @@ class SessionViewModel(private val session: Session?) : BaseObservable() {
     private fun getLevelTag(level: String): String {
         if (level == "INTERMEDIATE") return "中級者"
         if (level == "ADVANCED") return "上級者"
-        return "初心者"
+        return "初級者"
     }
 
     fun getShortStime(): String {
