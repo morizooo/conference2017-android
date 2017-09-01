@@ -22,7 +22,7 @@ class InformationFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
-        return inflater!!.inflate(R.layout.fragment_information, container, false)
+        return inflater?.inflate(R.layout.fragment_information, container, false)
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
@@ -32,23 +32,12 @@ class InformationFragment : Fragment() {
                 ArrayAdapter<String>(activity, android.R.layout.simple_list_item_1, menu)
         list_view.onItemClickListener = AdapterView.OnItemClickListener { _, _, pos, _ ->
             when (pos) {
-                0 -> {
-                    val intent = Intent(context, SponsorActivity::class.java)
-                    context.startActivity(intent)
-                }
-                1 -> {
-                    val intent = Intent(context, FloorMapActivity::class.java)
-                    context.startActivity(intent)
-                }
-                2 -> {
-                    val intent = Intent(context, QRCodeReaderActivity::class.java)
-                    context.startActivity(intent)
-                }
-                3 -> {
-                    val intent = Intent(context, LicenseActivity::class.java)
-                    context.startActivity(intent)
-                }
-            }
+                0 -> Intent(context, SponsorActivity::class.java)
+                1 -> Intent(context, FloorMapActivity::class.java)
+                2 -> Intent(context, QRCodeReaderActivity::class.java)
+                3 -> Intent(context, LicenseActivity::class.java)
+                else -> null
+            }?.let { context.startActivity(it) }
         }
 
         super.onViewCreated(view, savedInstanceState)
