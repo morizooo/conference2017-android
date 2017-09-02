@@ -19,12 +19,12 @@ import kotlinx.coroutines.experimental.launch
 
 class TimetableFragment : Fragment() {
 
-    lateinit var title: List<String>
+    private lateinit var title: List<String>
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
-        return inflater!!.inflate(R.layout.fragment_timetable, container, false)
+        return inflater?.inflate(R.layout.fragment_timetable, container, false)
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
@@ -49,11 +49,9 @@ class TimetableFragment : Fragment() {
     }
 
     private fun loadSession(index: Int): SessionsFragment {
-        val bundle = Bundle()
-        bundle.putInt("tabIndex", index)
-        val sessionsFragment = SessionsFragment()
-        sessionsFragment.arguments = bundle
-        return sessionsFragment
+        return SessionsFragment().apply {
+            arguments = Bundle().also { it.putInt("tabIndex", index) }
+        }
     }
 
     inner class SessionsViewPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {

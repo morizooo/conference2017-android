@@ -35,12 +35,14 @@ import java.util.*
 class SessionsFragment : Fragment() {
 
     internal var viewModel = SessionsViewModel()
-    lateinit var binding: FragmentSessionsBinding
-    lateinit var adapter: SessionsFragment.SessionsAdapter
+    private lateinit var binding: FragmentSessionsBinding
+    private lateinit var adapter: SessionsFragment.SessionsAdapter
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        inflater ?: return super.onCreateView(inflater, container, savedInstanceState)
+
         setHasOptionsMenu(true)
-        binding = FragmentSessionsBinding.inflate(inflater!!, container, false)
+        binding = FragmentSessionsBinding.inflate(inflater, container, false)
         binding.viewModel = viewModel
 
         initView()
@@ -84,7 +86,7 @@ class SessionsFragment : Fragment() {
         val sTimes = viewModel.sTimes
         val rooms = viewModel.rooms
         val tracks = viewModel.tracksMap
-        var colSpan = rooms.size
+        val colSpan = if (sTimes.first().needsAdjustColSpan()) 2 else rooms.size
 
         var sessionsTableWidth = activity.getScreenWidth()
         val minWidth = resources.getDimension(R.dimen.session_table_min_width).toInt()
@@ -93,11 +95,8 @@ class SessionsFragment : Fragment() {
         }
 
         binding.recyclerView.minimumWidth = sessionsTableWidth
-
-        if (sTimes.first().needsAdjustColSpan()) colSpan = 2
-        val lm = SpannableGridLayoutManager(
+        binding.recyclerView.layoutManager = SpannableGridLayoutManager(
                 TwoWayLayoutManager.Orientation.VERTICAL, colSpan, sTimes.size)
-        binding.recyclerView.layoutManager = lm
 
         renderHeaderRow(rooms, tracks)
         adapter.reset(adjustedSessionViewModels)
@@ -106,7 +105,8 @@ class SessionsFragment : Fragment() {
     private fun renderHeaderRow(rooms: List<Room>, tracks: Map<String, String>) {
         if (binding.headerRow.childCount == 0) {
             for ((id) in rooms) {
-                val view = LayoutInflater.from(activity).inflate(R.layout.view_sessions_header_cell, null)
+                val view = LayoutInflater.from(activity)
+                        .inflate(R.layout.view_sessions_header_cell, binding.headerRow, false)
                 val txtRoomName = view.findViewById<TextView>(R.id.txt_room_name)
                 txtRoomName.text = tracks[id]?.replace("(", "\n(")
                 val params = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 1f)
@@ -168,8 +168,7 @@ class SessionsFragment : Fragment() {
         }
 
         override fun onBindViewHolder(holder: BindingHolder<ViewSessionCellBinding>, position: Int) {
-            val viewModel = getItem(position)
-            holder.binding.viewModel = viewModel
+            holder.binding.viewModel = getItem(position)
             holder.binding.executePendingBindings()
         }
     }
